@@ -1,5 +1,4 @@
 FROM openanalytics/r-base:4.0.5
-#FROM rocker/r-base:4.1.0
 MAINTAINER Luis V. Valcarcel "lvalcarcelg@gmail.com" 
 
 # System libraries of general use
@@ -20,9 +19,7 @@ RUN apt-get update \
     curl \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean 
-#libssl1.0.0
 
-#libssl1.1  pandoc-citeproc \
 
 RUN apt-get update --allow-insecure-repositories --allow-unauthenticated && apt-get install -y --allow-unauthenticated  \
   libxml2-dev \
@@ -66,13 +63,18 @@ EXPOSE 3838
 RUN apt-get update && apt-get install -y git tree
 
 # Copy the app to the image
-RUN mkdir /root/gMCStool
-#RUN git clone --depth 1 --progress https://github.com/lvalcarcel/gMCStool.git /root/gMCStool
-COPY gMCStool /root/gMCStool
-RUN tree /root/gMCStool
+RUN mkdir /root/gmctool && mkdir /root/github 
+RUN tree /root/
+RUN git clone --depth 1 --progress https://github.com/lvalcarcel/gmctool.git /root/github 
+RUN cp -rv /root/github/ShinyApp /root/gmctool 
+RUN rm -rv /root/github 
+#COPY gMCStool /root/gMCStool
+
+COPY configuration_computer_power.R /root/gmctool/configuration_computer_power.R 
+RUN tree /root/gmctool
 
 
-RUN chmod 777 /root/gMCStool/www/* && chmod 777 /root/gMCStool/instructions/* && cd /root/gMCStool/
+RUN chmod 777 /root/gmctool/www/* && chmod 777 /root/gmctool/instructions/* && cd /root/gmctool/
 
 # RUN cd /root/gMCStool/
 # CMD ["R", "-e", "shiny::runApp('/root/gMCStool')"]
