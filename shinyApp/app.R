@@ -1,5 +1,5 @@
 ## ==================================================================================== ##
-# gMCStool Shiny App for predicting of essential genes.
+# gmctool Shiny App for predicting of essential genes.
 # Copyright (C) 2021 Luis V. Valcarcel
 # 
 # This program is free software: you can redistribute it and/or modify
@@ -119,7 +119,7 @@ DepMap.info.all <- list("dictionary.CCLE" =  readRDS("./Data/DepMap_Data/diction
 
 # (END1 - START1) + END3 - START3 
 
-print(paste0("running gMCStool with ",nWorkers," cores and ",round(nBytesRAM/1024/1024/1024,1)," GBs of RAM"))
+print(paste0("running gmctool with ",nWorkers," cores and ",round(nBytesRAM/1024/1024/1024,1)," GBs of RAM"))
 
 ########################################################################################################
 #  USER INTERFACE ####
@@ -150,10 +150,10 @@ ui <- tagList(
   
   # sandstone, spacelab Shiny themes
   navbarPage(theme = shinytheme("united"),
-             id = "gMCStool", 
-             title = "gMCStool",
+             id = "gmctool", 
+             title = "gmctool",
              position = c("static-top"),
-             # title = div(img(src = 'logo2.jpg',height = 28,width = 28), "gMCStool"),
+             # title = div(img(src = 'logo2.jpg',height = 28,width = 28), "gmctool"),
              selected = "Overview", # selected = "1. Select Cell Lines", # (testing) !!!!!!!!!
              
              
@@ -263,8 +263,8 @@ server <- function(input, output, session) {
   options(shiny.maxRequestSize = nBytesRAM) # 2 Gb of RAM
   
   # close all notifications with panel change
-  observeEvent(input$gMCStool, {
-    # print(paste("input$gMCStool", input$gMCStool))
+  observeEvent(input$gmctool, {
+    # print(paste("input$gmctool", input$gmctool))
     lapply(values$idx.messages, removeNotification)
     values$idx.messages <- c()
   })
@@ -272,18 +272,18 @@ server <- function(input, output, session) {
   ## Buttons to change the page ####
   # 1) Change from overview to Data Upload
   observeEvent(c(input$I_mp0_next),{
-    updateTabsetPanel(session, "gMCStool", selected = "2. Upload RNA-seq data")
+    updateTabsetPanel(session, "gmctool", selected = "2. Upload RNA-seq data")
   },ignoreInit = TRUE)
   observeEvent(c(input$I_mp0_next_to_download),{
-    updateTabsetPanel(session, "gMCStool", selected = "1. gMCS database")
+    updateTabsetPanel(session, "gmctool", selected = "1. gMCS database")
   },ignoreInit = TRUE)
   # 1) Change from Data Upload to Gene Essentially Analysis
   observeEvent(c(input$I_mp2_next),{
-    updateTabsetPanel(session, "gMCStool", selected = "3. Predict Essential Genes and DKOs")
+    updateTabsetPanel(session, "gmctool", selected = "3. Predict Essential Genes and DKOs")
   },ignoreInit = TRUE)
   # 1) Change from Gene Essentially Analysis to Case by Case
   observeEvent(c(input$I_mp3_next),{
-    updateTabsetPanel(session, "gMCStool", selected = "4. Visualization")
+    updateTabsetPanel(session, "gmctool", selected = "4. Visualization")
   },ignoreInit = TRUE)
   
   
@@ -679,7 +679,7 @@ server <- function(input, output, session) {
                    output$O_gMCS_metabolic_tasks <- DT::renderDataTable({Selected_metabolic_tasks()} )
                  })
   
-  output$O_gMCS_database_download <- downloadHandler(filename = paste0("gMCStool_selected_gMCSs_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm"), ".Rdata"), 
+  output$O_gMCS_database_download <- downloadHandler(filename = paste0("gmctool_selected_gMCSs_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm"), ".Rdata"), 
                                                      content = function(fname){
                                                        gMCS.info <- gMCS.info$selected
                                                        gMCS.info$gmcs.ENSEMBL <- gMCS.info.raw.rawData[metTasks[[values$I_GMCS_LIST]]$ID]
@@ -814,10 +814,16 @@ server <- function(input, output, session) {
           if (ncol(sample.class)==3) {
             rownames(sample.class) <- sample.class[,1]
             sample.class <- sample.class[colnames(values$gene.exp),]
-            sample.class <- sample.class[,-1]
+            # sample.class <- sample.class[,-1]
+            values$sample.class <- factor(sample.class[,2], levels = unique(sample.class[,1]))
+            values$sample.cohort <-  factor(sample.class[,3], levels = unique(sample.class[,2]))
+          } else if (ncol(sample.class)==2) {
+            rownames(sample.class) <- sample.class[,1]
+            sample.class <- sample.class[colnames(values$gene.exp),]
+            # sample.class <- sample.class[,-1]
+            values$sample.class <- factor(sample.class[,2], levels = unique(sample.class[,1]))
+            values$sample.cohort <-  as.factor(rep("cohort",nrow(sample.class)))
           }
-          values$sample.class <- factor(sample.class[,1], levels = unique(sample.class[,1]))
-          values$sample.cohort <-  factor(sample.class[,2], levels = unique(sample.class[,2]))
         } else {
           values$idx.messages <- c(values$idx.messages, showNotification("It is not possible to use this file:\n
                        the number of rows and the number of samples in the gene expression does not match",
@@ -847,7 +853,15 @@ server <- function(input, output, session) {
         if (ncol(sample.class)==3) {
           rownames(sample.class) <- sample.class[,1]
           sample.class <- sample.class[colnames(values$gene.exp),]
-          sample.class <- sample.class[,-1]
+          # sample.class <- sample.class[,-1]
+          values$sample.class <- factor(sample.class[,2], levels = unique(sample.class[,1]))
+          values$sample.cohort <-  factor(sample.class[,3], levels = unique(sample.class[,2]))
+        } else if (ncol(sample.class)==2) {
+          rownames(sample.class) <- sample.class[,1]
+          sample.class <- sample.class[colnames(values$gene.exp),]
+          # sample.class <- sample.class[,-1]
+          values$sample.class <- factor(sample.class[,2], levels = unique(sample.class[,1]))
+          values$sample.cohort <-  as.factor(rep("cohort",nrow(sample.class)))
         }
         values$sample.class <- factor(sample.class[,1], levels = unique(sample.class[,1]))
         values$sample.cohort <-  factor(sample.class[,2], levels = unique(sample.class[,2]))
@@ -1033,16 +1047,16 @@ server <- function(input, output, session) {
     
     
     # buttons to download the data ####
-    output$O_data_input_download_1 <- downloadHandler(filename = paste0("gMCStool_gene_expression_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm"), ".txt"), 
+    output$O_data_input_download_1 <- downloadHandler(filename = paste0("gmctool_gene_expression_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm"), ".txt"), 
                                                       content = function(fname){gene.exp  <- values$gene.exp; fwrite(gene.exp, file = fname, quote = F, row.names = T, sep = ";")})
     
-    output$O_data_input_download_2 <- downloadHandler(filename = paste0("gMCStool_sample_classification_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm"), ".txt"), 
+    output$O_data_input_download_2 <- downloadHandler(filename = paste0("gmctool_sample_classification_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm"), ".txt"), 
                                                       content = function(fname){
                                                         zz <- data.frame(colnames(values$gene.exp), values$sample.class, values$sample.cohort)
                                                         colnames(zz) <- c("Sample.ID", "sample.class", "sample.cohort")
                                                         fwrite(zz, file = fname, quote = F, row.names = F, sep = ";")})
     
-    output$O_data_input_download_rdata <- downloadHandler(filename = paste0("gMCStool_input_data_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm"), ".Rdata"), 
+    output$O_data_input_download_rdata <- downloadHandler(filename = paste0("gmctool_input_data_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm"), ".Rdata"), 
                                                           content = function(fname){gene.exp  <- values$gene.exp; sample.class <- values$sample.class; sample.cohort <- values$sample.cohort; save(gene.exp, sample.class, sample.cohort, file = fname)})
     
     
@@ -1668,11 +1682,11 @@ server <- function(input, output, session) {
     })
     
     # Save the results ####
-    output$O_results_essential_genes_simple_download <- downloadHandler(filename = paste0("gMCStool_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm"), ".csv"), 
+    output$O_results_essential_genes_simple_download <- downloadHandler(filename = paste0("gmctool_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm"), ".csv"), 
                                                                         content = function(fname){fwrite(ResultsEssentialityTableToTxt(), file = fname, quote = F, row.names = F, sep = ";")})
-    output$O_results_essential_genes_all_download <- downloadHandler(filename = paste0("gMCStool_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm"), ".xlsx"), 
+    output$O_results_essential_genes_all_download <- downloadHandler(filename = paste0("gmctool_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm"), ".xlsx"), 
                                                                      content = function(fname){SaveResultsInExcel(values$ResultsEssentiality, gMCS.info$selected, filename = fname)})
-    output$O_results_all_download <- downloadHandler(filename = paste0("gMCStool_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm"), ".Rdata"), 
+    output$O_results_all_download <- downloadHandler(filename = paste0("gmctool_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm"), ".Rdata"), 
                                                      content = function(fname){ResultsEssentiality <- values$ResultsEssentiality;gene.exp <- values$gene.exp; sample.class <- values$sample.class; sample.cohort <- values$sample.cohort;
                                                      save(ResultsEssentiality, gene.exp, sample.class, sample.cohort, file = fname)})
     
@@ -2079,7 +2093,7 @@ server <- function(input, output, session) {
                        #             colors_heatmap = input$I_colors_heatmap,
                        #             colors_annotation = input$I_colors_colors_annotation,
                        #             TABLE_GMCS_MODE = input$I_RESULT_TABLE_GMCS_MODE),
-                       #         paste0("CODE_TEST_HEATMAP/gMCStool_heatmap_data_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm%Ss"), ".RDS"))
+                       #         paste0("CODE_TEST_HEATMAP/gmctool_heatmap_data_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm%Ss"), ".RDS"))
                        
                        print("start ShowHeatmap")
                        values$plot.obj <- ShowHeatmap(gene.exp = values$gene.exp,
@@ -2205,17 +2219,17 @@ server <- function(input, output, session) {
     
     
     # Save the results ####
-    output$O_heatmap_seleted_gmcs_download_1 <- downloadHandler(filename = paste0("gMCStool_heatmap_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm"), ".png"), 
+    output$O_heatmap_seleted_gmcs_download_1 <- downloadHandler(filename = paste0("gmctool_heatmap_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm"), ".png"), 
                                                                 content = function(fname){ggsave(ggarrange(plotlist = values$plot.obj, nrow = length(values$plot.obj), ncol = 1), 
                                                                                                  file = fname,
                                                                                                  width = 10, height = ifelse(length(values$plot.obj)==1, 6, 9),
                                                                                                  units = "in", dpi = 400, bg = "white")})
-    output$O_heatmap_seleted_gmcs_download_2 <- downloadHandler(filename = paste0("gMCStool_heatmap_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm"), ".jpg"), 
+    output$O_heatmap_seleted_gmcs_download_2 <- downloadHandler(filename = paste0("gmctool_heatmap_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm"), ".jpg"), 
                                                                 content = function(fname){ggsave(ggarrange(plotlist = values$plot.obj, nrow = length(values$plot.obj), ncol = 1), 
                                                                                                  file = fname,
                                                                                                  width = 10, height = ifelse(length(values$plot.obj)==1, 6, 9),
                                                                                                  units = "in", dpi = 400, bg = "white")})
-    output$O_heatmap_seleted_gmcs_download_3 <- downloadHandler(filename = paste0("gMCStool_heatmap_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm"), ".RDS"), 
+    output$O_heatmap_seleted_gmcs_download_3 <- downloadHandler(filename = paste0("gmctool_heatmap_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm"), ".RDS"), 
                                                                 content = function(fname){saveRDS(values$plot.obj, file = fname)})
     
   }
@@ -2677,15 +2691,15 @@ server <- function(input, output, session) {
     
     
     # Save the results ####
-    output$O_dotplot_seleted_gmcs_download_1 <- downloadHandler(filename = paste0("gMCStool_dotplot_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm"), ".png"),
+    output$O_dotplot_seleted_gmcs_download_1 <- downloadHandler(filename = paste0("gmctool_dotplot_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm"), ".png"),
                                                                 content = function(fname){ggsave(values$plot.obj.DepMap, file = fname,
                                                                                                  width = 10, height = 8,
                                                                                                  units = "in", dpi = 400, bg = "white")})
-    output$O_dotplot_seleted_gmcs_download_2 <- downloadHandler(filename = paste0("gMCStool_dotplot_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm"), ".jpg"),
+    output$O_dotplot_seleted_gmcs_download_2 <- downloadHandler(filename = paste0("gmctool_dotplot_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm"), ".jpg"),
                                                                 content = function(fname){ggsave(values$plot.obj.DepMap, file = fname,
                                                                                                  width = 10, height = 8,
                                                                                                  units = "in", dpi = 400, bg = "white")})
-    output$O_dotplot_seleted_gmcs_download_3 <- downloadHandler(filename = paste0("gMCStool_dotplot_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm"), ".RDS"),
+    output$O_dotplot_seleted_gmcs_download_3 <- downloadHandler(filename = paste0("gmctool_dotplot_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm"), ".RDS"),
                                                                 content = function(fname){saveRDS(values$plot.obj.DepMap, file = fname)})
     
     
@@ -2694,7 +2708,7 @@ server <- function(input, output, session) {
   # END OF FILE ####
   # ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   
-  output$O_help_download <- downloadHandler(filename = "gMCStool_help_tab.pdf",
+  output$O_help_download <- downloadHandler(filename = "gmctool_help_tab.pdf",
                                             content = function(fname){file.copy(from = "instructions/gMCStool_help_tab.pdf", to = fname, overwrite = T)})
   
   output$iframe <- renderUI({

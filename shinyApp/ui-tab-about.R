@@ -1,5 +1,5 @@
 ## ==================================================================================== ##
-# gMCStool Shiny App for predicting of essential genes.
+# gmctool Shiny App for predicting of essential genes.
 # Copyright (C) 2021 Luis V. Valcarcel and Francisco J. Planes
 # 
 # This program is free software: you can redistribute it and/or modify
@@ -44,7 +44,7 @@ tabPanel("About",
              
              br(),     
              hr(style="border-color: #932636; background-color: #932636;color: #932636; width: 50%"),
-             h3("gMCStool Team Members"),
+             h3("gmctool Team Members"),
              br(),
              fluidRow(
                userBox(

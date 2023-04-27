@@ -1,115 +1,218 @@
 #1 [internal] load build definition from Dockerfile
-#1 sha256:8c1064d5379c8cbc06cc0d47429b9a4a174e8af699e9cc4ae38fb9666df18a7f
-#1 transferring dockerfile: 8.34kB done
-#1 DONE 0.0s
+#1 sha256:d877532c86b7b99d595d8c4d8736fbb1608080792384aaab0771e8b38afded94
+#1 transferring dockerfile: 8.83kB 0.0s done
+#1 DONE 0.1s
 
 #2 [internal] load .dockerignore
-#2 sha256:9f31b59d4bd69964531603872c693777646d8a568a11b367eda68ffab8c172ae
+#2 sha256:b3cfe805b33e35ea1f71b18607f23a65bba689b84aca76ff1562e409f0935f2e
+#2 transferring context:
 #2 transferring context: 2B done
-#2 DONE 0.0s
+#2 DONE 0.1s
 
 #3 [internal] load metadata for docker.io/openanalytics/r-base:4.0.5
 #3 sha256:bf037ff52803f1691c92db176087250c8cfea077377d1e83fdb1e681653f6554
-#3 DONE 0.7s
+#3 ...
 
-#4 [ 1/23] FROM docker.io/openanalytics/r-base:4.0.5@sha256:e82965a8d3c288a547a1f55760c6fa5146f63166377c5d98945685f272ff9aff
-#4 sha256:6ade64f551f25165eed8a6a8e0016422b843be364e94a02860e719ab7acd4d82
+#4 [auth] openanalytics/r-base:pull token for registry-1.docker.io
+#4 sha256:c90eff94cd0a3f099070840edb17ca91d118c6b2a433e17a35916529f8f04bb5
 #4 DONE 0.0s
 
-#9 [internal] load build context
-#9 sha256:732a2a27fdf0664e779b0c8b8a2e6434217783ee54ef1e9ab3fe711aec85fe54
-#9 transferring context: 34B done
-#9 DONE 0.0s
+#3 [internal] load metadata for docker.io/openanalytics/r-base:4.0.5
+#3 sha256:bf037ff52803f1691c92db176087250c8cfea077377d1e83fdb1e681653f6554
+#3 DONE 1.4s
 
-#18 [14/23] RUN R -e "pkgsNeeded <- c('gRbase', 'Rfast2', 'parallel', 'ParallelLogger','pbmcapply', 'doParallel', 'foreach', 'parallelly', 'future', 'future.apply'); pkgsInstalled <-  pkgsNeeded %in% rownames(installed.packages()); if (length(pkgsNeeded[!pkgsInstalled]) > 0){print(paste(pkgsNeeded[!pkgsInstalled])); install.packages(pkgsNeeded[!pkgsInstalled], dependencies = T, repos = 'https://cloud.r-project.org')}; q()"
-#18 sha256:82a774db49551bbf9695ed927f557a8567134e4672c87e5a34002eeb2b33dc22
-#18 CACHED
+#5 [ 1/21] FROM docker.io/openanalytics/r-base:4.0.5@sha256:e82965a8d3c288a547a1f55760c6fa5146f63166377c5d98945685f272ff9aff
+#5 sha256:6ade64f551f25165eed8a6a8e0016422b843be364e94a02860e719ab7acd4d82
+#5 DONE 0.0s
 
-#17 [13/23] RUN R -e "pkgsNeeded <- c('RcppZiggurat', 'Rfast'); pkgsInstalled <-  pkgsNeeded %in% rownames(installed.packages()); if (length(pkgsNeeded[!pkgsInstalled]) > 0){print(paste(pkgsNeeded[!pkgsInstalled])); install.packages(pkgsNeeded[!pkgsInstalled], dependencies = T, repos = 'https://cloud.r-project.org')}; q()"
-#17 sha256:d34e0fe89d790217e7e50fb4fe92cabb1c64c54a744a765db0866045cc3dbfb4
+#10 [internal] load build context
+#10 sha256:d9acaab9915a46b4322155ab0fc0a49fc6c80773e34394acdc6c5f26768d4c77
+#10 transferring context: 34B done
+#10 DONE 0.1s
+
+#23 https://api.github.com/repos/lvalcarcel/gmctool/commits?per_page=1
+#23 sha256:33894efabd9d1091edd706df0d7edfedcc4c799e57e28e00a4962d670134fa84
+#23 DONE 0.3s
+
+#17 [12/21] RUN R -e "pkgsNeeded <- c('Rgraphviz', 'RBGL'); pkgsInstalled <-  pkgsNeeded %in% rownames(installed.packages()); if (length(pkgsNeeded[!pkgsInstalled]) > 0){print(paste(pkgsNeeded[!pkgsInstalled])); BiocManager::install(pkgsNeeded[!pkgsInstalled], ask = F)}; q()"
+#17 sha256:8d567419b3d820116a7fa8349369e02b9e2e717fee3ac4b105865f5e9bd414af
 #17 CACHED
 
-#16 [12/23] RUN R -e "pkgsNeeded <- c('Rgraphviz', 'RBGL'); pkgsInstalled <-  pkgsNeeded %in% rownames(installed.packages()); if (length(pkgsNeeded[!pkgsInstalled]) > 0){print(paste(pkgsNeeded[!pkgsInstalled])); BiocManager::install(pkgsNeeded[!pkgsInstalled], ask = F)}; q()"
-#16 sha256:22a43040e851aff2dfc974fe52bc320c8097da9080d6dc48f751b6698bce99ac
-#16 CACHED
+#22 [17/21] RUN mkdir /root/gmctool
+#22 sha256:1d5657cc8577e28347d5f3363cc8f6c6ddc46a7c64bd77e7eaf0179fc888293e
+#22 CACHED
 
-#12 [ 8/23] RUN R -e "pkgsNeeded <- c('shiny','shinyjs','shinythemes','shinyWidgets', 'rmarkdown','shinycssloaders', 'shinydashboard', 'shinydashboardPlus','shinyalert', 'shinyhelper', 'DT', 'shinyTree'); pkgsInstalled <-  pkgsNeeded %in% rownames(installed.packages()); if (length(pkgsNeeded[!pkgsInstalled]) > 0){print(paste(pkgsNeeded[!pkgsInstalled])); install.packages(pkgsNeeded[!pkgsInstalled], dependencies = T, repos = 'https://cloud.r-project.org')}; q()"
-#12 sha256:859e0a3bb390e7c2ef5ade041412334502105d54545651657731e5e427f72e3e
+#12 [ 7/21] RUN R -e "pkgsNeeded <- 'https://cran.r-project.org/src/contrib/Archive/pbkrtest/pbkrtest_0.5.1.tar.gz'; install.packages(pkgs = pkgsNeeded, repos = NULL); q()"
+#12 sha256:5466cd75a2f05390024a7f5095f07fdaeb7a9ec3242f3a539a73237c624b3419
 #12 CACHED
 
-#8 [ 5/23] RUN apt update && apt install -y cmake
-#8 sha256:d107feea13ea6f18defa28ccc1a132b7464d28128e6c742e1fabcebb0f09eb43
-#8 CACHED
-
-#10 [ 6/23] COPY Rprofile.site /usr/lib/R/etc/
-#10 sha256:ec8a6f53c5e47ce96e62e8169c8f15c5114379b8583298a9ed79a94c95407f78
-#10 CACHED
-
-#13 [ 9/23] RUN R -e "pkgsNeeded <- c('tidyverse'); pkgsInstalled <-  pkgsNeeded %in% rownames(installed.packages()); if (length(pkgsNeeded[!pkgsInstalled]) > 0){print(paste(pkgsNeeded[!pkgsInstalled])); install.packages(pkgsNeeded[!pkgsInstalled], dependencies = T, repos = 'https://cloud.r-project.org')}; q()"
-#13 sha256:120d2b426938b85aa897bfa41fcd804b62221e9811d2da784d356f73739af348
-#13 CACHED
-
-#7 [ 4/23] RUN apt-get update --allow-insecure-repositories --allow-unauthenticated && apt-get install -y --allow-unauthenticated    libxml2-dev   libudunits2-dev   libssl-dev   libfontconfig1-dev   libharfbuzz-dev libfribidi-dev   libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev
-#7 sha256:5b99b178ae7af8d962e7265f22415990f3673defa0fd5fedd6f84c8f45a8ee49
-#7 CACHED
-
-#6 [ 3/23] RUN apt-get update     && apt-get install -y     sudo     pandoc     libcurl4-gnutls-dev     libcairo2-dev     libxt-dev     libssl-dev     libv8-dev     libgsl-dev     libssh2-1-dev     curl     && rm -rf /var/lib/apt/lists/*     && apt-get clean
-#6 sha256:094a1a3c431e7ca9f8ce00db7bc5b6f157da2f0ccf76e9bcd8596d5e79ac0a9d
+#6 [ 2/21] RUN apt-get update && apt-get upgrade -y binutils && apt-get clean
+#6 sha256:c9b23859d15ea8a9cfc2ae150da860120164d2af35f681c09895258c8ef38b66
 #6 CACHED
 
-#14 [10/23] RUN R -e "pkgsNeeded <- c('data.table', 'dplyr', 'rstatix','Matrix', 'reshape2', 'gridExtra', 'pheatmap','ggplot2', 'ggpubr', 'ggrepel', 'scales', 'colorspace', 'circlize', 'BiocManager', 'openxlsx', 'viridis', 'latex2exp', 'benchmarkme'); pkgsInstalled <-  pkgsNeeded %in% rownames(installed.packages()); if (length(pkgsNeeded[!pkgsInstalled]) > 0){print(paste(pkgsNeeded[!pkgsInstalled])); install.packages(pkgsNeeded[!pkgsInstalled], dependencies = T, repos = 'https://cloud.r-project.org')}; q()"
-#14 sha256:4c66ddea6c11a23c1eadff4a335b392a880ee6c978bbbab3de0af02ef9f04cb6
-#14 CACHED
-
-#11 [ 7/23] RUN R -e "pkgsNeeded <- 'https://cran.r-project.org/src/contrib/Archive/pbkrtest/pbkrtest_0.5.1.tar.gz'; install.packages(pkgs = pkgsNeeded, repos = NULL); q()"
-#11 sha256:55a1e505d2039c0fb5a6b136009e156ae8eb8a19bb1f2de310c5ec371c3af3c2
-#11 CACHED
-
-#15 [11/23] RUN R -e "pkgsNeeded <- c('foreach', 'doParallel', 'parallel', 'doSNOW', 'doParallel', 'snow', 'pbapply'); pkgsInstalled <-  pkgsNeeded %in% rownames(installed.packages()); if (length(pkgsNeeded[!pkgsInstalled]) > 0){print(paste(pkgsNeeded[!pkgsInstalled])); install.packages(pkgsNeeded[!pkgsInstalled], dependencies = T, repos = 'https://cloud.r-project.org')}; q()"
-#15 sha256:c36dc5b5b9589c026c70b21854eccd8ad8987d0054a518f589f7ddf9fc9131af
+#15 [10/21] RUN R -e "pkgsNeeded <- c('data.table', 'dplyr', 'rstatix','Matrix', 'reshape2', 'gridExtra', 'pheatmap','ggplot2', 'ggpubr', 'ggrepel', 'scales', 'colorspace', 'circlize', 'BiocManager', 'openxlsx', 'viridis', 'latex2exp', 'benchmarkme'); pkgsInstalled <-  pkgsNeeded %in% rownames(installed.packages()); if (length(pkgsNeeded[!pkgsInstalled]) > 0){print(paste(pkgsNeeded[!pkgsInstalled])); install.packages(pkgsNeeded[!pkgsInstalled], dependencies = T, repos = 'https://cloud.r-project.org')}; q()"
+#15 sha256:e3fec81d409bf92c61ca1fa3e42b996e1b17c89b28de74e16cf99c0e63cd5025
 #15 CACHED
 
-#19 [15/23] RUN R -e "pkgsNeeded <- c('circlize', 'colorspace', 'data.table', 'doParallel', 'doSNOW', 'dplyr', 'DT', 'foreach', 'ggplot2', 'ggpubr', 'ggrepel', 'gridExtra', 'latex2exp', 'Matrix', 'openxlsx', 'parallel', 'pbapply', 'pheatmap', 'reshape2', 'rmarkdown', 'rstatix', 'scales', 'shiny', 'shinyalert', 'shinycssloaders', 'shinydashboard', 'shinydashboardPlus', 'shinyhelper', 'shinyjs', 'shinythemes', 'shinyTree', 'shinyWidgets', 'snow', 'tidyverse', 'viridis'); pkgsInstalled <-  pkgsNeeded %in% rownames(installed.packages()); if (length(pkgsNeeded[!pkgsInstalled]) > 0){print(paste(pkgsNeeded[!pkgsInstalled])); install.packages(pkgsNeeded[!pkgsInstalled], dependencies = T, repos = 'https://cloud.r-project.org')}; q()"
-#19 sha256:c9da26998c5f7cd21761afa6affc83eecbdb9f00f02232f187c1493c2511525f
+#19 [14/21] RUN R -e "pkgsNeeded <- c('gRbase', 'Rfast2', 'parallel', 'ParallelLogger','pbmcapply', 'doParallel', 'foreach', 'parallelly', 'future', 'future.apply'); pkgsInstalled <-  pkgsNeeded %in% rownames(installed.packages()); if (length(pkgsNeeded[!pkgsInstalled]) > 0){print(paste(pkgsNeeded[!pkgsInstalled])); install.packages(pkgsNeeded[!pkgsInstalled], dependencies = T, repos = 'https://cloud.r-project.org')}; q()"
+#19 sha256:42cd367684c84b6bf3bc14edf7838000523e55a18d9718f43b7bbe4fdbfd7a97
 #19 CACHED
 
-#5 [ 2/23] RUN apt-get update && apt-get upgrade -y binutils && apt-get clean
-#5 sha256:c9b23859d15ea8a9cfc2ae150da860120164d2af35f681c09895258c8ef38b66
-#5 CACHED
+#24 [18/21] ADD https://api.github.com/repos/lvalcarcel/gmctool/commits?per_page=1 latest_commit
+#24 sha256:f55b548ed04443bf31a35ed6bdd5481a7563e1f151218c7d26680bbe821cbc92
+#24 CACHED
 
-#20 [16/23] RUN apt-get update && apt-get install -y git tree
-#20 sha256:cdcc2cd4073fcb83f06fec54d03d89b9cd56fbef2fda931bbc44cdd39c74c39d
+#9 [ 5/21] RUN apt update && apt install -y cmake
+#9 sha256:d107feea13ea6f18defa28ccc1a132b7464d28128e6c742e1fabcebb0f09eb43
+#9 CACHED
+
+#21 [16/21] RUN apt-get update && apt-get install -y git tree
+#21 sha256:fdd12aeea2e83d3b3130a4920d4bc3fb99f78731ca462d5f8ec8907866ae57ee
+#21 CACHED
+
+#11 [ 6/21] COPY Rprofile.site /usr/lib/R/etc/
+#11 sha256:151cae9da6de8dda4ab60e925bbe19556dd2ace1e6366a257407e009f7c356a0
+#11 CACHED
+
+#13 [ 8/21] RUN R -e "pkgsNeeded <- c('shiny','shinyjs','shinythemes','shinyWidgets', 'rmarkdown','shinycssloaders', 'shinydashboard', 'shinydashboardPlus','shinyalert', 'shinyhelper', 'DT', 'shinyTree'); pkgsInstalled <-  pkgsNeeded %in% rownames(installed.packages()); if (length(pkgsNeeded[!pkgsInstalled]) > 0){print(paste(pkgsNeeded[!pkgsInstalled])); install.packages(pkgsNeeded[!pkgsInstalled], dependencies = T, repos = 'https://cloud.r-project.org')}; q()"
+#13 sha256:bc9bbdcd260949c5e9a4857b30ef91b7670b8fdf87cf497d2463411917a7b2f7
+#13 CACHED
+
+#16 [11/21] RUN R -e "pkgsNeeded <- c('foreach', 'doParallel', 'parallel', 'doSNOW', 'doParallel', 'snow', 'pbapply'); pkgsInstalled <-  pkgsNeeded %in% rownames(installed.packages()); if (length(pkgsNeeded[!pkgsInstalled]) > 0){print(paste(pkgsNeeded[!pkgsInstalled])); install.packages(pkgsNeeded[!pkgsInstalled], dependencies = T, repos = 'https://cloud.r-project.org')}; q()"
+#16 sha256:b34bb747a9f1b04c978f4a243ad8709580c2233197d4e625251737ac825e3c24
+#16 CACHED
+
+#18 [13/21] RUN R -e "pkgsNeeded <- c('RcppZiggurat', 'Rfast'); pkgsInstalled <-  pkgsNeeded %in% rownames(installed.packages()); if (length(pkgsNeeded[!pkgsInstalled]) > 0){print(paste(pkgsNeeded[!pkgsInstalled])); install.packages(pkgsNeeded[!pkgsInstalled], dependencies = T, repos = 'https://cloud.r-project.org')}; q()"
+#18 sha256:53311130e95d26d1b30de04383e606762a4c1fb7d5944cb40db774054dd40e21
+#18 CACHED
+
+#14 [ 9/21] RUN R -e "pkgsNeeded <- c('tidyverse'); pkgsInstalled <-  pkgsNeeded %in% rownames(installed.packages()); if (length(pkgsNeeded[!pkgsInstalled]) > 0){print(paste(pkgsNeeded[!pkgsInstalled])); install.packages(pkgsNeeded[!pkgsInstalled], dependencies = T, repos = 'https://cloud.r-project.org')}; q()"
+#14 sha256:b0c8ed4503d856b17ad64a5998e1214fc024d4d9b61d92e38190ab35d16bd4c9
+#14 CACHED
+
+#8 [ 4/21] RUN apt-get update --allow-insecure-repositories --allow-unauthenticated && apt-get install -y --allow-unauthenticated    libxml2-dev   libudunits2-dev   libssl-dev   libfontconfig1-dev   libharfbuzz-dev libfribidi-dev   libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev
+#8 sha256:5b99b178ae7af8d962e7265f22415990f3673defa0fd5fedd6f84c8f45a8ee49
+#8 CACHED
+
+#7 [ 3/21] RUN apt-get update     && apt-get install -y     sudo     pandoc     libcurl4-gnutls-dev     libcairo2-dev     libxt-dev     libssl-dev     libv8-dev     libgsl-dev     libssh2-1-dev     curl     && rm -rf /var/lib/apt/lists/*     && apt-get clean
+#7 sha256:094a1a3c431e7ca9f8ce00db7bc5b6f157da2f0ccf76e9bcd8596d5e79ac0a9d
+#7 CACHED
+
+#20 [15/21] RUN R -e "pkgsNeeded <- c('circlize', 'colorspace', 'data.table', 'doParallel', 'doSNOW', 'dplyr', 'DT', 'foreach', 'ggplot2', 'ggpubr', 'ggrepel', 'gridExtra', 'latex2exp', 'Matrix', 'openxlsx', 'parallel', 'pbapply', 'pheatmap', 'reshape2', 'rmarkdown', 'rstatix', 'scales', 'shiny', 'shinyalert', 'shinycssloaders', 'shinydashboard', 'shinydashboardPlus', 'shinyhelper', 'shinyjs', 'shinythemes', 'shinyTree', 'shinyWidgets', 'snow', 'tidyverse', 'viridis'); pkgsInstalled <-  pkgsNeeded %in% rownames(installed.packages()); if (length(pkgsNeeded[!pkgsInstalled]) > 0){print(paste(pkgsNeeded[!pkgsInstalled])); install.packages(pkgsNeeded[!pkgsInstalled], dependencies = T, repos = 'https://cloud.r-project.org')}; q()"
+#20 sha256:b81667a7a6975f3713b5db9531f2e6cc228770c1979e6856c70d3fef848f44ac
 #20 CACHED
 
-#21 [17/23] RUN mkdir /root/gmctool && mkdir /root/github
-#21 sha256:4f86e55e4b2413763e8a53a13403ee67db367f6edc1e98afe8c853be95d7100b
-#21 DONE 0.4s
+#25 [19/21] RUN curl -L "https://github.com/lvalcarcel/gmctool/archive/main.zip" -o /root/main.zip && cd /root/ && unzip /root/main.zip && cp -rv /root/gmctool-main/shinyApp/* /root/gmctool &&  rm -rvf /root/gmctool-main/ && rm -v  /root/main.zip
+#25 sha256:ebf59129a36627154bd1a0304b79a007ff73247f8265c03b4cb76497a55f3739
+#25 CACHED
 
-#22 [18/23] RUN tree /root/
-#22 sha256:939c42a8bccd4298fc59ed8092df2ecc761a23b14ccd183c8f23562d1fd27eaf
-#22 0.491 /root/
-#22 0.491 ├── github
-#22 0.491 └── gmctool
-#22 0.491 
-#22 0.491 2 directories, 0 files
-#22 DONE 0.5s
+#26 [20/21] RUN tree /root/
+#26 sha256:100c8530e485ec1b8a5318038d081b40e764cb8b0ada4e64015e33538f3637a5
+#26 0.471 /root/
+#26 0.471 └── gmctool
+#26 0.471     ├── app.R
+#26 0.471     ├── configuration_computer_power.R
+#26 0.471     ├── Data
+#26 0.471     │   ├── DepMap_Data
+#26 0.471     │   │   ├── DepMapCorrelationByGene.RDS
+#26 0.471     │   │   ├── DepMapEssentialityByGene_AchillesChronos.RDS
+#26 0.471     │   │   ├── DepMapEssentialityByGene_Achilles.RDS
+#26 0.471     │   │   ├── DepMapEssentialityByGene_CRISPR.RDS
+#26 0.471     │   │   ├── DepMapEssentialityByGene_Demeter.RDS
+#26 0.471     │   │   ├── DepMapExpressionByGene_EssentialTasks_CultureMedium_log2(TPM+1).RDS
+#26 0.471     │   │   ├── DepMapExpressionByGene_EssentialTasks_CultureMedium_zscores(log2(TPM+1)).RDS
+#26 0.471     │   │   ├── DepMapExpressionByGene_EssentialTasks_CultureMedium_zscores(TPM+1)).RDS
+#26 0.471     │   │   ├── DepMapExpressionByGene_EssentialTasks_FullMedium_log2(TPM+1).RDS
+#26 0.471     │   │   ├── DepMapExpressionByGene_EssentialTasks_FullMedium_zscores(log2(TPM+1)).RDS
+#26 0.471     │   │   ├── DepMapExpressionByGene_EssentialTasks_FullMedium_zscores(TPM+1)).RDS
+#26 0.471     │   │   ├── DepMapExpressionByGene_Only_CultureMedium_log2(TPM+1).RDS
+#26 0.471     │   │   ├── DepMapExpressionByGene_Only_CultureMedium_zscores(log2(TPM+1)).RDS
+#26 0.471     │   │   ├── DepMapExpressionByGene_Only_CultureMedium_zscores(TPM+1)).RDS
+#26 0.471     │   │   ├── DepMapExpressionByGene_Only_FullMedium_log2(TPM+1).RDS
+#26 0.471     │   │   ├── DepMapExpressionByGene_Only_FullMedium_zscores(log2(TPM+1)).RDS
+#26 0.471     │   │   ├── DepMapExpressionByGene_Only_FullMedium_zscores(TPM+1)).RDS
+#26 0.471     │   │   ├── DepMapGeneExpression_log2(TPM+1).RDS
+#26 0.471     │   │   ├── DepMapGeneExpression_zscores(log2(TPM+1)).RDS
+#26 0.471     │   │   ├── DepMapGeneExpression_zscores(TPM+1)).RDS
+#26 0.471     │   │   └── dictionary.CCLE.RDS
+#26 0.471     │   ├── genes_HumanGEM.txt
+#26 0.471     │   ├── gMCSs_all_cases_HumanGEMv1.4.0_ENSEMBL_raw.RDS
+#26 0.471     │   ├── gMCSs_all_cases_HumanGEMv1.4.0_ENSEMBL.Rdata
+#26 0.471     │   ├── Metabolites_of_interest_gMCS_biomass_HumanGEMv1.4.0.RDS
+#26 0.471     │   ├── metTasks_HumanGEMv1.4.0.RDS
+#26 0.471     │   └── table_genes_HumanGEM.RDS
+#26 0.471     ├── ExampleData
+#26 0.471     │   ├── CompleteData_HumanGEM_DepMap_TPM.Rdata
+#26 0.471     │   ├── CompleteResults_HumanGEM_DepMap_gmcsTH5_TPM.Rdata
+#26 0.471     │   ├── ExampleData_HumanGEM_BcellMM_log2TPM.Rdata
+#26 0.471     │   ├── ExampleData_HumanGEM_BcellMM_TPM.Rdata
+#26 0.471     │   ├── ExampleResults_HumanGEM_BcellMM_gmcsTH5_log2TPM.Rdata
+#26 0.471     │   ├── ExampleResults_HumanGEM_BcellMM_gmcsTH5_TPM.Rdata
+#26 0.471     │   ├── ExampleResults_HumanGEM_BcellMM_localT2_log2TPM.Rdata
+#26 0.471     │   └── ExampleResults_HumanGEM_BcellMM_localT2_TPM.Rdata
+#26 0.471     ├── fun-CalculateEssentialGenes.R
+#26 0.471     ├── fun-CalculateGenesOnOff.R
+#26 0.471     ├── fun-SaveResultsInExcel.R
+#26 0.471     ├── fun-ShowDotplot_DepMap.R
+#26 0.471     ├── fun-ShowHeatmap.R
+#26 0.471     ├── fun-SimplifyGMCS.R
+#26 0.471     ├── helpers.R
+#26 0.471     ├── instructions
+#26 0.471     │   ├── gettingStarted_help.Rmd
+#26 0.471     │   ├── gettingStarted_help_v4.Rmd
+#26 0.471     │   ├── gettingStarted_overview.Rmd
+#26 0.471     │   ├── gettingStarted_overview_v2.Rmd
+#26 0.471     │   ├── gMCStool_help_tab.pdf
+#26 0.471     │   ├── Slide10.png
+#26 0.471     │   ├── Slide11.png
+#26 0.471     │   ├── Slide13.png
+#26 0.471     │   ├── Slide15.png
+#26 0.471     │   ├── Slide1.png
+#26 0.471     │   ├── Slide2.png
+#26 0.471     │   ├── Slide3.png
+#26 0.471     │   ├── Slide4.png
+#26 0.471     │   ├── Slide5.png
+#26 0.471     │   ├── Slide6.png
+#26 0.471     │   ├── Slide7.png
+#26 0.471     │   ├── Slide8.png
+#26 0.471     │   └── Slide9.png
+#26 0.471     ├── test_profiler.R
+#26 0.471     ├── ui-footer.R
+#26 0.471     ├── ui-tab-about.R
+#26 0.471     ├── ui-tab-DepMap_analysis.R
+#26 0.471     ├── ui-tab-download_gMCS_lists.R
+#26 0.471     ├── ui-tab-help.R
+#26 0.471     ├── ui-tab-overview.R
+#26 0.471     ├── ui-tab-predict_essential_gene.R
+#26 0.471     ├── ui-tab-upload_RNAseq_data.R
+#26 0.471     ├── ui-tab-visualization.R
+#26 0.471     └── www
+#26 0.471         ├── ~$logoGMCStool.pptx
+#26 0.471         ├── agirre_xabier.jpg
+#26 0.471         ├── apaolaza_emparanza_inigo.jpg
+#26 0.471         ├── dr-felipe-prosper_2.jpg
+#26 0.471         ├── edurne-san-jose-eneriz.jpg
+#26 0.471         ├── google-analytics.js
+#26 0.471         ├── loading-73.gif
+#26 0.471         ├── loading-74.gif
+#26 0.471         ├── logo_gMCStool_2.png
+#26 0.471         ├── logo_gMCStool - Copy.png
+#26 0.471         ├── logo_gMCStool.png
+#26 0.471         ├── planes_pedreno_francis.jpg
+#26 0.471         └── valcarcel_luis.jpg
+#26 0.471 
+#26 0.471 6 directories, 85 files
+#26 DONE 0.6s
 
-#23 [19/23] RUN git clone --depth 1 --progress https://github.com/lvalcarcel/gmctool.git /root/github
-#23 sha256:6155855d72acbd1bf88304bf5eceeb28c28aa1d27966ae48dc245371fac3a7ae
-#23 0.611 Cloning into '/root/github'...
-#23 1.597 remote: Enumerating objects: 155, done.        
-#23 1.597 remote: Counting objects:   0% (1/155)        remote: Counting objects:   1% (2/155)        remote: Counting objects:   2% (4/155)        remote: Counting objects:   3% (5/155)        remote: Counting objects:   4% (7/155)        remote: Counting objects:   5% (8/155)        remote: Counting objects:   6% (10/155)        remote: Counting objects:   7% (11/155)        remote: Counting objects:   8% (13/155)        remote: Counting objects:   9% (14/155)        remote: Counting objects:  10% (16/155)        remote: Counting objects:  11% (18/155)        remote: Counting objects:  12% (19/155)        remote: Counting objects:  13% (21/155)        remote: Counting objects:  14% (22/155)        remote: Counting objects:  15% (24/155)        remote: Counting objects:  16% (25/155)        remote: Counting objects:  17% (27/155)        remote: Counting objects:  18% (28/155)        remote: Counting objects:  19% (30/155)        remote: Counting objects:  20% (31/155)        remote: Counting objects:  21% (33/155)        remote: Counting objects:  22% (35/155)        remote: Counting objects:  23% (36/155)        remote: Counting objects:  24% (38/155)        remote: Counting objects:  25% (39/155)        remote: Counting objects:  26% (41/155)        remote: Counting objects:  27% (42/155)        remote: Counting objects:  28% (44/155)        remote: Counting objects:  29% (45/155)        remote: Counting objects:  30% (47/155)        remote: Counting objects:  31% (49/155)        remote: Counting objects:  32% (50/155)        remote: Counting objects:  33% (52/155)        remote: Counting objects:  34% (53/155)        remote: Counting objects:  35% (55/155)        remote: Counting objects:  36% (56/155)        remote: Counting objects:  37% (58/155)        remote: Counting objects:  38% (59/155)        remote: Counting objects:  39% (61/155)        remote: Counting objects:  40% (62/155)        remote: Counting objects:  41% (64/155)        remote: Counting objects:  42% (66/155)        remote: Counting objects:  43% (67/155)        remote: Counting objects:  44% (69/155)        remote: Counting objects:  45% (70/155)        remote: Counting objects:  46% (72/155)        remote: Counting objects:  47% (73/155)        remote: Counting objects:  48% (75/155)        remote: Counting objects:  49% (76/155)        remote: Counting objects:  50% (78/155)        remote: Counting objects:  51% (80/155)        remote: Counting objects:  52% (81/155)        remote: Counting objects:  53% (83/155)        remote: Counting objects:  54% (84/155)        remote: Counting objects:  55% (86/155)        remote: Counting objects:  56% (87/155)        remote: Counting objects:  57% (89/155)        remote: Counting objects:  58% (90/155)        remote: Counting objects:  59% (92/155)        remote: Counting objects:  60% (93/155)        remote: Counting objects:  61% (95/155)        remote: Counting objects:  62% (97/155)        remote: Counting objects:  63% (98/155)        remote: Counting objects:  64% (100/155)        remote: Counting objects:  65% (101/155)        remote: Counting objects:  66% (103/155)        remote: Counting objects:  67% (104/155)        remote: Counting objects:  68% (106/155)        remote: Counting objects:  69% (107/155)        remote: Counting objects:  70% (109/155)        remote: Counting objects:  71% (111/155)        remote: Counting objects:  72% (112/155)        remote: Counting objects:  73% (114/155)        remote: Counting objects:  74% (115/155)        remote: Counting objects:  75% (117/155)        remote: Counting objects:  76% (118/155)        remote: Counting objects:  77% (120/155)        remote: Counting objects:  78% (121/155)        remote: Counting objects:  79% (123/155)        remote: Counting objects:  80% (124/155)        remote: Counting objects:  81% (126/155)        remote: Counting objects:  82% (128/155)        remote: Counting objects:  83% (129/155)        remote: Counting objects:  84% (131/155)        remote: Counting objects:  85% (132/155)        remote: Counting objects:  86% (134/155)        remote: Counting objects:  87% (135/155)        remote: Counting objects:  88% (137/155)        remote: Counting objects:  89% (138/155)        remote: Counting objects:  90% (140/155)        remote: Counting objects:  91% (142/155)        remote: Counting objects:  92% (143/155)        remote: Counting objects:  93% (145/155)        remote: Counting objects:  94% (146/155)        remote: Counting objects:  95% (148/155)        remote: Counting objects:  96% (149/155)        remote: Counting objects:  97% (151/155)        remote: Counting objects:  98% (152/155)        remote: Counting objects:  99% (154/155)        remote: Counting objects: 100% (155/155)        remote: Counting objects: 100% (155/155), done.        
-#23 1.613 remote: Compressing objects:   0% (1/104)        remote: Compressing objects:   1% (2/104)        remote: Compressing objects:   2% (3/104)        remote: Compressing objects:   3% (4/104)        remote: Compressing objects:   4% (5/104)        remote: Compressing objects:   5% (6/104)        remote: Compressing objects:   6% (7/104)        remote: Compressing objects:   7% (8/104)        remote: Compressing objects:   8% (9/104)        remote: Compressing objects:   9% (10/104)        remote: Compressing objects:  10% (11/104)        remote: Compressing objects:  11% (12/104)        remote: Compressing objects:  12% (13/104)        remote: Compressing objects:  13% (14/104)        remote: Compressing objects:  14% (15/104)        remote: Compressing objects:  15% (16/104)        remote: Compressing objects:  16% (17/104)        remote: Compressing objects:  17% (18/104)        remote: Compressing objects:  18% (19/104)        remote: Compressing objects:  19% (20/104)        remote: Compressing objects:  20% (21/104)        remote: Compressing objects:  21% (22/104)        remote: Compressing objects:  22% (23/104)        remote: Compressing objects:  23% (24/104)        remote: Compressing objects:  24% (25/104)        remote: Compressing objects:  25% (26/104)        remote: Compressing objects:  26% (28/104)        remote: Compressing objects:  27% (29/104)        remote: Compressing objects:  28% (30/104)        remote: Compressing objects:  29% (31/104)        remote: Compressing objects:  30% (32/104)        remote: Compressing objects:  31% (33/104)        remote: Compressing objects:  32% (34/104)        remote: Compressing objects:  33% (35/104)        remote: Compressing objects:  34% (36/104)        remote: Compressing objects:  35% (37/104)        remote: Compressing objects:  36% (38/104)        remote: Compressing objects:  37% (39/104)        remote: Compressing objects:  38% (40/104)        remote: Compressing objects:  39% (41/104)        remote: Compressing objects:  40% (42/104)        remote: Compressing objects:  41% (43/104)        remote: Compressing objects:  42% (44/104)        remote: Compressing objects:  43% (45/104)        remote: Compressing objects:  44% (46/104)        remote: Compressing objects:  45% (47/104)        remote: Compressing objects:  46% (48/104)        remote: Compressing objects:  47% (49/104)        remote: Compressing objects:  48% (50/104)        remote: Compressing objects:  49% (51/104)        remote: Compressing objects:  50% (52/104)        remote: Compressing objects:  51% (54/104)        remote: Compressing objects:  52% (55/104)        remote: Compressing objects:  53% (56/104)        remote: Compressing objects:  54% (57/104)        remote: Compressing objects:  55% (58/104)        remote: Compressing objects:  56% (59/104)        remote: Compressing objects:  57% (60/104)        remote: Compressing objects:  58% (61/104)        remote: Compressing objects:  59% (62/104)        remote: Compressing objects:  60% (63/104)        remote: Compressing objects:  61% (64/104)        remote: Compressing objects:  62% (65/104)        remote: Compressing objects:  63% (66/104)        remote: Compressing objects:  64% (67/104)        remote: Compressing objects:  65% (68/104)        remote: Compressing objects:  66% (69/104)        remote: Compressing objects:  67% (70/104)        remote: Compressing objects:  68% (71/104)        remote: Compressing objects:  69% (72/104)        remote: Compressing objects:  70% (73/104)        remote: Compressing objects:  71% (74/104)        remote: Compressing objects:  72% (75/104)        remote: Compressing objects:  73% (76/104)        remote: Compressing objects:  74% (77/104)        remote: Compressing objects:  75% (78/104)        remote: Compressing objects:  76% (80/104)        remote: Compressing objects:  77% (81/104)        remote: Compressing objects:  78% (82/104)        remote: Compressing objects:  79% (83/104)        remote: Compressing objects:  80% (84/104)        remote: Compressing objects:  81% (85/104)        remote: Compressing objects:  82% (86/104)        remote: Compressing objects:  83% (87/104)        remote: Compressing objects:  84% (88/104)        remote: Compressing objects:  85% (89/104)        remote: Compressing objects:  86% (90/104)        remote: Compressing objects:  87% (91/104)        remote: Compressing objects:  88% (92/104)        remote: Compressing objects:  89% (93/104)        remote: Compressing objects:  90% (94/104)        remote: Compressing objects:  91% (95/104)        remote: Compressing objects:  92% (96/104)        remote: Compressing objects:  93% (97/104)        remote: Compressing objects:  94% (98/104)        remote: Compressing objects:  95% (99/104)        remote: Compressing objects:  96% (100/104)        remote: Compressing objects:  97% (101/104)        remote: Compressing objects:  98% (102/104)        remote: Compressing objects:  99% (103/104)        remote: Compressing objects: 100% (104/104)        remote: Compressing objects: 100% (104/104), done.        
-#23 1.642 Receiving objects:   0% (1/155)Receiving objects:   1% (2/155)Receiving objects:   2% (4/155)Receiving objects:   3% (5/155)Receiving objects:   4% (7/155)Receiving objects:   5% (8/155)Receiving objects:   6% (10/155)Receiving objects:   7% (11/155)Receiving objects:   8% (13/155)Receiving objects:   9% (14/155)Receiving objects:  10% (16/155)Receiving objects:  11% (18/155)Receiving objects:  12% (19/155)Receiving objects:  13% (21/155)Receiving objects:  14% (22/155)Receiving objects:  15% (24/155)Receiving objects:  16% (25/155)Receiving objects:  17% (27/155)Receiving objects:  18% (28/155)Receiving objects:  19% (30/155)Receiving objects:  20% (31/155)Receiving objects:  21% (33/155)Receiving objects:  22% (35/155)Receiving objects:  23% (36/155)Receiving objects:  24% (38/155)Receiving objects:  25% (39/155)Receiving objects:  26% (41/155)Receiving objects:  27% (42/155)Receiving objects:  28% (44/155)Receiving objects:  29% (45/155)Receiving objects:  30% (47/155)Receiving objects:  31% (49/155)Receiving objects:  32% (50/155)Receiving objects:  33% (52/155)Receiving objects:  34% (53/155)Receiving objects:  35% (55/155)Receiving objects:  36% (56/155)Receiving objects:  37% (58/155)Receiving objects:  38% (59/155)Receiving objects:  39% (61/155)Receiving objects:  40% (62/155)Receiving objects:  41% (64/155), 1.39 MiB | 2.76 MiB/sReceiving objects:  42% (66/155), 1.39 MiB | 2.76 MiB/sReceiving objects:  43% (67/155), 1.39 MiB | 2.76 MiB/sReceiving objects:  44% (69/155), 1.39 MiB | 2.76 MiB/sReceiving objects:  45% (70/155), 1.39 MiB | 2.76 MiB/sReceiving objects:  45% (70/155), 2.89 MiB | 2.83 MiB/sReceiving objects:  45% (70/155), 6.00 MiB | 2.93 MiB/sReceiving objects:  45% (70/155), 8.96 MiB | 2.94 MiB/sReceiving objects:  45% (71/155), 11.78 MiB | 2.90 MiB/sReceiving objects:  45% (71/155), 14.45 MiB | 2.85 MiB/sReceiving objects:  45% (71/155), 17.30 MiB | 2.81 MiB/sReceiving objects:  46% (72/155), 18.74 MiB | 2.80 MiB/sReceiving objects:  46% (72/155), 20.19 MiB | 2.77 MiB/sReceiving objects:  46% (72/155), 23.06 MiB | 2.78 MiB/sReceiving objects:  46% (72/155), 25.91 MiB | 2.80 MiB/sReceiving objects:  46% (72/155), 28.79 MiB | 2.82 MiB/sReceiving objects:  47% (73/155), 28.79 MiB | 2.82 MiB/sReceiving objects:  47% (73/155), 31.55 MiB | 2.79 MiB/sReceiving objects:  47% (73/155), 34.46 MiB | 2.80 MiB/sReceiving objects:  48% (75/155), 35.89 MiB | 2.78 MiB/sReceiving objects:  49% (76/155), 38.77 MiB | 2.78 MiB/sReceiving objects:  49% (76/155), 40.16 MiB | 2.78 MiB/sReceiving objects:  50% (78/155), 41.56 MiB | 2.76 MiB/sReceiving objects:  50% (79/155), 44.56 MiB | 2.82 MiB/sReceiving objects:  51% (80/155), 47.32 MiB | 2.81 MiB/sReceiving objects:  52% (81/155), 48.62 MiB | 2.78 MiB/sReceiving objects:  52% (82/155), 50.08 MiB | 2.79 MiB/sReceiving objects:  53% (83/155), 52.88 MiB | 2.77 MiB/sReceiving objects:  54% (84/155), 52.88 MiB | 2.77 MiB/sReceiving objects:  55% (86/155), 55.74 MiB | 2.76 MiB/sReceiving objects:  55% (86/155), 59.95 MiB | 2.76 MiB/sReceiving objects:  56% (87/155), 59.95 MiB | 2.76 MiB/sReceiving objects:  56% (87/155), 62.79 MiB | 2.77 MiB/sReceiving objects:  56% (87/155), 65.66 MiB | 2.79 MiB/sReceiving objects:  56% (87/155), 68.52 MiB | 2.80 MiB/sReceiving objects:  56% (88/155), 71.40 MiB | 2.81 MiB/sReceiving objects:  56% (88/155), 74.25 MiB | 2.82 MiB/sReceiving objects:  56% (88/155), 75.68 MiB | 2.80 MiB/sReceiving objects:  57% (89/155), 77.11 MiB | 2.81 MiB/sReceiving objects:  58% (90/155), 77.11 MiB | 2.81 MiB/sReceiving objects:  58% (90/155), 78.50 MiB | 2.79 MiB/sReceiving objects:  58% (91/155), 81.21 MiB | 2.74 MiB/sReceiving objects:  59% (92/155), 82.64 MiB | 2.74 MiB/sReceiving objects:  59% (92/155), 84.14 MiB | 2.75 MiB/sReceiving objects:  60% (93/155), 84.14 MiB | 2.75 MiB/sReceiving objects:  61% (95/155), 84.14 MiB | 2.75 MiB/sReceiving objects:  62% (97/155), 84.14 MiB | 2.75 MiB/sReceiving objects:  62% (97/155), 87.12 MiB | 2.79 MiB/sReceiving objects:  62% (97/155), 90.04 MiB | 2.80 MiB/sReceiving objects:  63% (98/155), 90.04 MiB | 2.80 MiB/sReceiving objects:  63% (98/155), 93.08 MiB | 2.90 MiB/sReceiving objects:  63% (98/155), 95.92 MiB | 2.89 MiB/sReceiving objects:  63% (98/155), 98.84 MiB | 2.85 MiB/sReceiving objects:  63% (98/155), 101.71 MiB | 2.84 MiB/sReceiving objects:  63% (98/155), 104.49 MiB | 2.82 MiB/sReceiving objects:  63% (99/155), 105.93 MiB | 2.80 MiB/sReceiving objects:  64% (100/155), 107.39 MiB | 2.81 MiB/sReceiving objects:  65% (101/155), 108.86 MiB | 2.82 MiB/sReceiving objects:  65% (101/155), 112.97 MiB | 2.78 MiB/sReceiving objects:  65% (102/155), 115.86 MiB | 2.79 MiB/sReceiving objects:  66% (103/155), 115.86 MiB | 2.79 MiB/sReceiving objects:  66% (103/155), 118.68 MiB | 2.78 MiB/sReceiving objects:  67% (104/155), 120.15 MiB | 2.79 MiB/sReceiving objects:  67% (104/155), 121.58 MiB | 2.79 MiB/sReceiving objects:  67% (105/155), 123.01 MiB | 2.79 MiB/sReceiving objects:  68% (106/155), 123.01 MiB | 2.79 MiB/sReceiving objects:  69% (107/155), 123.01 MiB | 2.79 MiB/sReceiving objects:  70% (109/155), 123.01 MiB | 2.79 MiB/sReceiving objects:  71% (111/155), 123.01 MiB | 2.79 MiB/sReceiving objects:  72% (112/155), 123.01 MiB | 2.79 MiB/sReceiving objects:  73% (114/155), 123.01 MiB | 2.79 MiB/sReceiving objects:  74% (115/155), 124.43 MiB | 2.83 MiB/sReceiving objects:  75% (117/155), 125.89 MiB | 2.82 MiB/sReceiving objects:  76% (118/155), 127.38 MiB | 2.86 MiB/sReceiving objects:  76% (119/155), 128.83 MiB | 2.85 MiB/sReceiving objects:  77% (120/155), 130.13 MiB | 2.81 MiB/sReceiving objects:  78% (121/155), 130.13 MiB | 2.81 MiB/sReceiving objects:  79% (123/155), 130.13 MiB | 2.81 MiB/sReceiving objects:  80% (124/155), 131.51 MiB | 2.81 MiB/sReceiving objects:  81% (126/155), 134.36 MiB | 2.79 MiB/sReceiving objects:  82% (128/155), 135.69 MiB | 2.78 MiB/sReceiving objects:  83% (129/155), 135.69 MiB | 2.78 MiB/sReceiving objects:  84% (131/155), 135.69 MiB | 2.78 MiB/sReceiving objects:  85% (132/155), 135.69 MiB | 2.78 MiB/sReceiving objects:  86% (134/155), 135.69 MiB | 2.78 MiB/sReceiving objects:  87% (135/155), 135.69 MiB | 2.78 MiB/sReceiving objects:  88% (137/155), 135.69 MiB | 2.78 MiB/sReceiving objects:  89% (138/155), 135.69 MiB | 2.78 MiB/sReceiving objects:  90% (140/155), 135.69 MiB | 2.78 MiB/sReceiving objects:  91% (142/155), 135.69 MiB | 2.78 MiB/sReceiving objects:  92% (143/155), 135.69 MiB | 2.78 MiB/sReceiving objects:  93% (145/155), 137.10 MiB | 2.76 MiB/sReceiving objects:  94% (146/155), 137.10 MiB | 2.76 MiB/sReceiving objects:  94% (147/155), 138.18 MiB | 2.69 MiB/sReceiving objects:  94% (147/155), 141.39 MiB | 2.75 MiB/sReceiving objects:  94% (147/155), 144.63 MiB | 2.88 MiB/sReceiving objects:  95% (148/155), 144.63 MiB | 2.88 MiB/sReceiving objects:  95% (148/155), 147.89 MiB | 2.98 MiB/sReceiving objects:  95% (148/155), 151.18 MiB | 3.11 MiB/sReceiving objects:  95% (148/155), 154.49 MiB | 3.24 MiB/sReceiving objects:  95% (148/155), 156.09 MiB | 3.24 MiB/sReceiving objects:  96% (149/155), 156.09 MiB | 3.24 MiB/sReceiving objects:  97% (151/155), 156.09 MiB | 3.24 MiB/sReceiving objects:  98% (152/155), 156.09 MiB | 3.24 MiB/sremote: Total 155 (delta 51), reused 155 (delta 51), pack-reused 0        
-#23 56.97 Receiving objects:  99% (154/155), 156.09 MiB | 3.24 MiB/sReceiving objects: 100% (155/155), 156.09 MiB | 3.24 MiB/sReceiving objects: 100% (155/155), 157.14 MiB | 2.84 MiB/s, done.
-#23 56.97 Resolving deltas:   0% (0/51)Resolving deltas:   1% (1/51)Resolving deltas:  11% (6/51)Resolving deltas:  60% (31/51)Resolving deltas:  64% (33/51)Resolving deltas:  66% (34/51)Resolving deltas:  68% (35/51)Resolving deltas:  72% (37/51)Resolving deltas:  78% (40/51)Resolving deltas: 100% (51/51)Resolving deltas: 100% (51/51), done.
-#23 DONE 58.4s
+#27 [21/21] RUN chmod 777 /root/gmctool/www/* && chmod 777 /root/gmctool/instructions/* && cd /root/gmctool/
+#27 sha256:5fa85f049a34b9c1742cf78b84129ee014a6a2bf0643929f6bc2a15a2c7f1533
+#27 DONE 1.4s
 
-#24 [20/23] RUN cp -rv /root/github/ShinyApp /root/gmctool
-#24 sha256:610b54ffd3b0ddb885093f6e4efd013820408803daa6201542cb7c13bc8ed342
-#24 0.448 cp: cannot stat '/root/github/ShinyApp': No such file or directory
-#24 ERROR: executor failed running [/bin/sh -c cp -rv /root/github/ShinyApp /root/gmctool]: exit code: 1
-------
- > [20/23] RUN cp -rv /root/github/ShinyApp /root/gmctool:
-------
-executor failed running [/bin/sh -c cp -rv /root/github/ShinyApp /root/gmctool]: exit code: 1
+#28 exporting to image
+#28 sha256:e8c613e07b0b7ff33893b694f7759a10d42e180f2b4dc349fb57dc6b71dcab00
+#28 exporting layers
+#28 exporting layers 0.3s done
+#28 writing image sha256:6f769e27eaf611bd86771071849adce3bfcc662ab4a94bf263a9e2b5afab20a1
+#28 writing image sha256:6f769e27eaf611bd86771071849adce3bfcc662ab4a94bf263a9e2b5afab20a1 0.0s done
+#28 naming to docker.io/lvalcarcel/gmctool:1.3.0 0.0s done
+#28 DONE 0.7s

@@ -10,8 +10,8 @@ output:
 
 ## Quick start
 
-gMCStool outputs a list of predicted essential metabolic genes and their companion biomarkers for a given cohort of RNA-seq samples.
-The functionalities of gMCStool are divided into 5 different modules. Figure 1 shows the gMCStool' pipeline:
+gmctool outputs a list of predicted essential metabolic genes and their companion biomarkers for a given cohort of RNA-seq samples.
+The functionalities of gmctool are divided into 5 different modules. Figure 1 shows the gmctool' pipeline:
 
 
 <p style="text-align:center;"><img src="Slide5.png" alt="pipeline" style="width: 90%;image-rendering: -webkit-optimize-contrast"/></p>
@@ -36,15 +36,15 @@ The functionalities of gMCStool are divided into 5 different modules. Figure 1 s
 
 ## Guided example :
 
-This is a tutorial to exemplify the use of gMCStool to perform gene essentiality analysis. For illustration, we analyze the metabolic dependencies of a dataset including different B cell subpopulations ([DepMap database](https://depmap.org/portal/)) and the MM samples ([DepMap database](https://depmap.org/portal/)).
+This is a tutorial to exemplify the use of gmctool to perform gene essentiality analysis. For illustration, we analyze the metabolic dependencies of a dataset including different B cell subpopulations ([DepMap database](https://depmap.org/portal/)) and the MM samples ([DepMap database](https://depmap.org/portal/)).
 
 <p style="text-align:center;"><iframe width="560" height="315" src="https://www.youtube.com/embed/k9OM2lhDHEU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> </p> 
 <br>
 
 ### Step 1: access the tool
 
-We can access to the online version of gMCStool here: [link](https://biotecnun.unav.es/app/gmcstool).
-We can also download gMCStool from [GitHub](https://github.com/lvalcarcel/gMCStool/). Once the Git repository is cloned, the Shiny app can be run locally simply by typing:
+We can access to the online version of gmctool here: [link](https://biotecnun.unav.es/app/gmctool).
+We can also download gmctool from [GitHub](https://github.com/lvalcarcel/gmctool/). Once the Git repository is cloned, the Shiny app can be run locally simply by typing:
 
 ```{r eval=F, echo=T}
 
@@ -52,7 +52,7 @@ shiny::runApp('./app.R')
 
 ```
 
-The code is prepared to adjust the amount of available RAM and number of cores. For large datasets we strongly encourage the use of gMCStool in a local computer rather than the online version.
+The code is prepared to adjust the amount of available RAM and number of cores. For large datasets we strongly encourage the use of gmctool in a local computer rather than the online version.
 For any of the 2 options, the user encounters this main presentation panel:
 
 
@@ -61,7 +61,7 @@ For any of the 2 options, the user encounters this main presentation panel:
 
 There are two buttons:
 <ul>
-  <li><b>Start!</b>: gMCStool automatically selects the database of gMCSs and the user directed to the panel “Upload the RNA-seq data”.</li>
+  <li><b>Start!</b>: gmctool automatically selects the database of gMCSs and the user directed to the panel “Upload the RNA-seq data”.</li>
   <li><b>Go to gMCS database</b>: the user goes to the panel “gMCS database”.</li>
 </ul>
 

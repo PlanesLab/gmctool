@@ -63,15 +63,21 @@ EXPOSE 3838
 RUN apt-get update && apt-get install -y git tree
 
 # Copy the app to the image
-RUN mkdir /root/gmctool && mkdir /root/github 
-RUN tree /root/
-RUN git clone --depth 1 --progress https://github.com/lvalcarcel/gmctool.git /root/github 
-RUN cp -rv /root/github/ShinyApp /root/gmctool 
-RUN rm -rv /root/github 
+RUN mkdir /root/gmctool 
+#RUN tree /root/
+
+# trick to skip cache
+#ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
+#RUN git clone --depth 1 --progress https://github.com/lvalcarcel/gmctool.git /root/github && cp -rv /root/github/shinyApp/* /root/gmctool &&  rm -rvf /root/github
+
+ADD "https://api.github.com/repos/lvalcarcel/gmctool/commits?per_page=1" latest_commit
+RUN curl -L "https://github.com/lvalcarcel/gmctool/archive/main.zip" -o /root/main.zip && cd /root/ && unzip /root/main.zip && cp -rv /root/gmctool-main/shinyApp/* /root/gmctool &&  rm -rvf /root/gmctool-main/ && rm -v  /root/main.zip
+
 #COPY gMCStool /root/gMCStool
 
+# comment for more powerfull cluster
 COPY configuration_computer_power.R /root/gmctool/configuration_computer_power.R 
-RUN tree /root/gmctool
+RUN tree /root/
 
 
 RUN chmod 777 /root/gmctool/www/* && chmod 777 /root/gmctool/instructions/* && cd /root/gmctool/
