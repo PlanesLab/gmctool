@@ -39,6 +39,5 @@ vignettes/*.pdf
 .Renviron
 
 # docker files
-/*.tar
-*output.txt
-*/output.txt
+DockerFiles/*.tar
+DockerFiles/output.txt
