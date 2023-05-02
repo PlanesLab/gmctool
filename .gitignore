@@ -41,3 +41,4 @@ vignettes/*.pdf
 # docker files
 DockerFiles/*.tar
 DockerFiles/output.txt
+DockerFiles/*.txt
