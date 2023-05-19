@@ -815,13 +815,13 @@ server <- function(input, output, session) {
             rownames(sample.class) <- sample.class[,1]
             sample.class <- sample.class[colnames(values$gene.exp),]
             # sample.class <- sample.class[,-1]
-            values$sample.class <- factor(sample.class[,2], levels = unique(sample.class[,1]))
-            values$sample.cohort <-  factor(sample.class[,3], levels = unique(sample.class[,2]))
+            values$sample.class <- factor(sample.class[,2], levels = unique(sample.class[,2]))
+            values$sample.cohort <-  factor(sample.class[,3], levels = unique(sample.class[,3]))
           } else if (ncol(sample.class)==2) {
             rownames(sample.class) <- sample.class[,1]
             sample.class <- sample.class[colnames(values$gene.exp),]
             # sample.class <- sample.class[,-1]
-            values$sample.class <- factor(sample.class[,2], levels = unique(sample.class[,1]))
+            values$sample.class <- factor(sample.class[,2], levels = unique(sample.class[,2]))
             values$sample.cohort <-  as.factor(rep("cohort",nrow(sample.class)))
           }
         } else {
@@ -958,7 +958,7 @@ server <- function(input, output, session) {
         hideElement("mp2")
       }
       
-      if (coverage < 0.5) {
+      if (coverage < 0.7) {
         values$idx.messages <- c(values$idx.messages, showNotification(paste0("Most of the genes of the gMCS are not in this dataset\n",
                                                                               "coverage = ", round(coverage*100,2), "%"),
                                                                        duration = NULL, type = "error"))
@@ -970,7 +970,7 @@ server <- function(input, output, session) {
         values$sample.cohort <- rep('--', ncol(gene.exp))
         
         
-        values$idx.messages <- c(values$idx.messages, showNotification(paste0("Most of the genes of the gMCS are not in this dataset\n",
+        values$idx.messages <- c(values$idx.messages, showNotification(paste0("Most of the genes of the gMCS are in this dataset\n",
                                                                               "coverage = ", round(coverage*100,2), "%"),
                                                                        duration = NULL, type = ifelse(coverage < 0.9, "warning", "message")))
         
