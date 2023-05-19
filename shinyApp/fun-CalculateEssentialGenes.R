@@ -90,7 +90,9 @@ CalculateEssentialGenes <- function(gene.exp, # gene expression
   table.genes.HumanGEM <- gMCS.info$table.genes.HumanGEM  # table that relates genes in ENSEMBL, SYMBOL and ENTREZ_ID
   
   # ensure that it contains all the genes in the desired order for the calculation
-  gene.ON.OFF <- gene.ON.OFF[genes.gMCSs.ENSEMBL,]
+  gene.ON.OFF <- as.data.frame(gene.ON.OFF)[genes.gMCSs.ENSEMBL,]
+  rownames(gene.ON.OFF) <- genes.gMCSs.ENSEMBL
+  gene.ON.OFF[is.na(gene.ON.OFF)] <- FALSE # non present genes are considered as 0
   
   ################################################################
   ####        single and double essential genes               ####
