@@ -111,7 +111,7 @@ CalculateGenesOnOff <- function(gene.exp, # gene expression
                                                   obtain_max_gene_gMCS_sample,
                                                   mc.cores = parallel.nCores,
                                                   mc.preschedule = T,
-                                                  mc.style = "txt", mc.substyle = 3)
+                                                  mc.style = "ETA", mc.substyle = 3)
       
       gene.first.ENSEMBL <- do.call(cbind, gene.first.ENSEMBL)
     } else if (parallel.mode == "SOCK"){

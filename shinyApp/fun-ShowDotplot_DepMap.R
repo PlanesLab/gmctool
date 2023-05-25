@@ -1,7 +1,7 @@
 ShowDotplot_DepMap <- function(DepMap.info.all, gMCS.info.all, gmcs_database, gene.target.info, by_gMCS = F,
                                database, database_filter_mode, database_filter_selected, threshold_value,
                                flag_database_filter_show_only, flag_LinearRegression = T, flag_show_SYMBOL = T,
-                               flag_color_by_gMCS = F, database_unit){
+                               flag_color_by_partner_gene = F, database_unit){
   
   # browser()
   
@@ -15,7 +15,7 @@ ShowDotplot_DepMap <- function(DepMap.info.all, gMCS.info.all, gmcs_database, ge
   
   # test the data
   if(gene.ENSEMBL %in% gMCS.info.all$gMCSs.ENSEMBL.txt) { return(tibble(x = 1, y = 1) %>% ggplot(aes(x, y)) + theme_void() + geom_text(label ="This is an essential gene, it has no partner")) }
-  # if(sum(gMCS.info.all$gMCSs.ENSEMBL.max[,gene.ENSEMBL])==1){by_gMCS = F; flag_color_by_gMCS = F}
+  # if(sum(gMCS.info.all$gMCSs.ENSEMBL.max[,gene.ENSEMBL])==1){by_gMCS = F; flag_color_by_partner_gene = F}
   
   if (by_gMCS) {
     gmcs.ENSEMBL <- strsplit(gMCS.info.all$gMCSs.ENSEMBL.txt[as.numeric(as.character(gene.target.info$gMCS))],'--')[[1]]
@@ -23,57 +23,62 @@ ShowDotplot_DepMap <- function(DepMap.info.all, gMCS.info.all, gmcs_database, ge
     gmcs.SYMBOL <- strsplit(gMCS.info.all$gMCSs.SYMBOL.txt[as.numeric(as.character(gene.target.info$gMCS))],'--')[[1]]
     gmcs.SYMBOL <- setdiff(gmcs.SYMBOL, gene.SYMBOL)
     
-    sdf <- reshape2::dcast(DepMap.info.all$DepMapGeneExpression %>% filter(UNIT==database_unit), ENSEMBL~DepMap_ID, value.var = "logTPM", fun.aggregate = sum)
-    sdf <- sdf %>% filter(ENSEMBL %in% gmcs.ENSEMBL)
+    sdf <- reshape2::dcast(DepMap.info.all$DepMapGeneExpression %>% filter(UNIT==database_unit), ENSEMBL_target~DepMap_ID, value.var = "logTPM", fun.aggregate = sum)
+    sdf <- sdf %>% filter(ENSEMBL_target %in% gmcs.ENSEMBL)
     sdf <- reshape2::melt(apply(sdf[,-1],2,max))
     sdf <- data.frame(DepMap_ID = rownames(sdf),
                       logTPM = sdf$value,
-                      ENSEMBL = gene.ENSEMBL,
+                      ENSEMBL_target = gene.ENSEMBL,
                       UNIT = database_unit)
     
   } else {
     sdf <- DepMap.info.all$DepMapExpressionByGene %>% 
-      filter(ENSEMBL==gene.ENSEMBL) %>% 
+      filter(ENSEMBL_target==gene.ENSEMBL) %>% 
       filter(gMCS.database==gmcs_database) %>% 
       filter(UNIT==database_unit) 
   }
   
+  # browser()
   
-  if (flag_color_by_gMCS & !by_gMCS) {
+  if (flag_color_by_partner_gene & !by_gMCS) {
     
-    aux.fun <-  function(x){
-      if (length(x)==1){ 
-        paste0("",x , "")
-      } else {
-        paste0("max(", paste(x, collapse = ", "), ")")
-      }}
     
-    # define the gMCSs in which this gene participates
-    idx <- sdf$gmcs.idx
-    if (flag_show_SYMBOL) {
-      # browser()
-      gMCSs.SYMBOL <- gMCS.info.all$gMCSs.SYMBOL.txt[idx]
-      gMCSs.SYMBOL <- lapply(gMCSs.SYMBOL, function(x){unlist(strsplit(x, "--"))})
-      
-      gMCSs.SYMBOL <- lapply(gMCSs.SYMBOL, function(x){x[x!=gene.SYMBOL]})
-      sdf$gMCSs.to.show <- unlist(lapply(gMCSs.SYMBOL, aux.fun))
+    if (flag_show_SYMBOL) { 
+      sdf <- merge(sdf, 
+                   gMCS.info.all$table.genes.HumanGEM %>% 
+                     rename(ENSEMBL_partner = ENSEMBL) %>% 
+                     rename(SYMBOL_partner = SYMBOL)  %>% 
+                     rename(ENTREZID_partner = ENTREZID))
+      sdf$partner_gene <- sdf$SYMBOL_partner
     } else {
-      gMCSs.ENSEMBL <- gMCS.info.all$gMCSs.ENSEMBL.txt[idx]
-      gMCSs.ENSEMBL <- lapply(gMCSs.ENSEMBL, function(x){unlist(strsplit(x, "--"))})
-      
-      gMCSs.ENSEMBL <- lapply(gMCSs.ENSEMBL, function(x){x[x!=gene.ENSEMBL]})
-      
-      sdf$gMCSs.to.show <- unlist(lapply(gMCSs.ENSEMBL, aux.fun))
+      sdf$partner_gene <- sdf$ENSEMBL_partner
     }
+    
+    # reorder partner genes, set a maximum of four and add percentage 
+    # (only show those with more than 1% of samples)
+    browser
+    zz <- sort(table(sdf$partner_gene),decreasing = T)
+    zz_levels <- zz_labels <- names(zz)
+    zz_per <- as.numeric(zz)/sum(zz)*100
+    nn <- min(sum(zz_per>1),3)
+    if (length(zz_labels)>nn){
+      nn <- 1:(nn)
+      zz_labels[-nn] <- "others"
+      zz_per[-nn] <- sum(zz_per[-nn])
+    }
+    zz_labels <- paste0(zz_labels, " (", round(zz_per,1),"%)" )
+    sdf$partner_gene <- factor(as.character(sdf$partner_gene),
+                               levels = zz_levels, labels = zz_labels)
+    
   } else {
-    sdf$gMCSs.to.show <- "noColor"
+    sdf$partner_gene <- "noColor"
   }
   
   # head(sdf)
   
   
   sdf.2 <- DepMap.info.all$DepMapEssentialityByGene %>% 
-    filter(ENSEMBL==gene.ENSEMBL) %>% 
+    filter(ENSEMBL_target==gene.ENSEMBL) %>% 
     filter(essentiality.database==database)
   
   sdf <- merge(sdf, sdf.2)
@@ -91,6 +96,12 @@ ShowDotplot_DepMap <- function(DepMap.info.all, gMCS.info.all, gmcs_database, ge
   }
   sdf$isFilterSelected <- as.factor(sdf$isFilterSelected)
   
+  if (database_unit == "zscores(TPM+1))") {
+    database_unit = "zscores(TPM))"
+  } else if (database_unit == "proteomics") {
+    database_unit = "Relative Protein Expression"
+  }
+
   
   XLAB <- paste0("Minimum expression of associated gMCSs partner genes \\[ ", sub("log2", "log_2", database_unit), " \\]")
   if (by_gMCS){
@@ -126,7 +137,7 @@ ShowDotplot_DepMap <- function(DepMap.info.all, gMCS.info.all, gmcs_database, ge
           panel.border = element_rect(colour = "black", fill = NA),
           strip.text = element_text(color='black', size=14), 
           axis.title = element_text(color = "black", size = 14, face = "bold"),
-          legend.position = "none") + 
+          legend.position = ifelse(sdf$partner_gene[1]=="noColor", "none", "right")) + 
     xlab(latex2exp::TeX(XLAB)) + ylab(latex2exp::TeX(YLAB)) 
   
   if (!is.na(threshold_value)) {
@@ -137,21 +148,21 @@ ShowDotplot_DepMap <- function(DepMap.info.all, gMCS.info.all, gmcs_database, ge
     if (flag_database_filter_show_only){
       sdf3 <- sdf[sdf$isFilterSelected!="rest",]
       pp_dotplot <- pp_dotplot + 
-        geom_point(mapping = aes(col = gMCSs.to.show, shape = isFilterSelected), size = 2, data = sdf3) +
+        geom_point(mapping = aes(col = partner_gene, shape = isFilterSelected), size = 2, data = sdf3) +
         # scale_color_manual(values = c("grey50", "black"), breaks = c("0","1")) +
         scale_shape_manual(values = c(21, rep(16, length(database_filter_selected))), breaks = c("rest",database_filter_selected))  
       # scale_size_manual(values = c(1.5, 3), breaks = c("0","1"))
     } else {
       sdf3 <- sdf[sdf$isFilterSelected!="rest",]
       pp_dotplot <- pp_dotplot + 
-        geom_point(mapping = aes(col = gMCSs.to.show, shape = isFilterSelected), size = 1.5, data = sdf) +
-        geom_point(mapping = aes(col = gMCSs.to.show, shape = isFilterSelected), size = 3, data = sdf3) +
+        geom_point(mapping = aes(col = partner_gene, shape = isFilterSelected), size = 1.5, data = sdf) +
+        geom_point(mapping = aes(col = partner_gene, shape = isFilterSelected), size = 3, data = sdf3) +
         # scale_color_manual(values = c("grey50", "black"), breaks = c("0","1")) +
         scale_shape_manual(values = c(21, rep(8, length(database_filter_selected))), breaks = c("rest",database_filter_selected))  
       # scale_size_manual(values = c(1.5, 3), breaks = c("0","1"))
     }
   } else {
-    pp_dotplot <- pp_dotplot + geom_point(aes(col = gMCSs.to.show), size = 2)
+    pp_dotplot <- pp_dotplot + geom_point(aes(col = partner_gene), size = 2)
   }
   
   if (flag_LinearRegression){
@@ -167,7 +178,9 @@ ShowDotplot_DepMap <- function(DepMap.info.all, gMCS.info.all, gmcs_database, ge
                                         x = Inf, y = -Inf, hjust = 1, vjust = -1, size = 4)
   }
   
-  if (!flag_color_by_gMCS){
+  if (flag_color_by_partner_gene){
+    pp_dotplot <- pp_dotplot + scale_color_brewer(type = "qual", palette = "Dark2")
+  } else {
     pp_dotplot <- pp_dotplot + scale_color_manual(values = c("black"), breaks = c("noColor"))
   }
   

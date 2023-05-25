@@ -93,6 +93,7 @@ CalculateEssentialGenes <- function(gene.exp, # gene expression
   gene.ON.OFF <- as.data.frame(gene.ON.OFF)[genes.gMCSs.ENSEMBL,]
   rownames(gene.ON.OFF) <- genes.gMCSs.ENSEMBL
   gene.ON.OFF[is.na(gene.ON.OFF)] <- FALSE # non present genes are considered as 0
+
   
   ################################################################
   ####        single and double essential genes               ####
@@ -140,7 +141,7 @@ CalculateEssentialGenes <- function(gene.exp, # gene expression
     genes.double.gMCSs.ENSEMBL <- lapply(genes.double.gMCSs.ENSEMBL, gRbase::combn_prim, 2)
     genes.double.gMCSs.ENSEMBL <- t(do.call(cbind, genes.double.gMCSs.ENSEMBL))
     
-    genes.double.gMCSs.ENSEMBL.counts <- data.frame(gen1 = genes.double.gMCSs.ENSEMBL[,1], gen2 = genes.double.gMCSs.ENSEMBL[,2]) %>% count(gen1, gen2)
+    genes.double.gMCSs.ENSEMBL.counts <- data.frame(gen1 = genes.double.gMCSs.ENSEMBL[,1], gen2 = genes.double.gMCSs.ENSEMBL[,2]) %>% plyr::count(vars = c("gen1", "gen2"))
     
     MagicNumber <- 10^ceiling(log10(length(genes.gMCSs.ENSEMBL)))
     
