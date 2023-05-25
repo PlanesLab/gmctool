@@ -30,7 +30,6 @@ CalculateEssentialGenes <- function(gene.exp, # gene expression
   if (length(parallel.nCores)==1){ parallel.nCores.1 = parallel.nCores.2 = parallel.nCores} else {parallel.nCores.1 = parallel.nCores[1]; parallel.nCores.2 = parallel.nCores[2]}
   if (parallel.mode!="FORK") {parallel.nCores.2 = 1} # only select one core for second part if use something different as FORK
   
-  
   # Calculate first and second most expressed gene in each gMCS in each sample ####
   gene.exp[is.na(gene.exp)] <- 0 # eliminate nans
   

@@ -43,16 +43,16 @@ num_max_classes = 30 # define the maximum number of classes
 
 
 # Load data  ####
-START2 <- Sys.time()
+# START2 <- Sys.time()
 load("./Data/gMCSs_all_cases_HumanGEMv1.4.0_ENSEMBL.Rdata")
-END2 <- Sys.time()
+# END2 <- Sys.time()
 
-
-format(object.size(gMCS.info.raw), units = "auto")
-sapply(gMCS.info.raw, function(x) format(object.size(x), units = "auto"))
-sapply(gMCS.info.raw[[1]], function(x) format(object.size(x), units = "auto"))
+# format(object.size(gMCS.info.raw), units = "auto")
+# sapply(gMCS.info.raw, function(x) format(object.size(x), units = "auto"))
+# sapply(gMCS.info.raw[[1]], function(x) format(object.size(x), units = "auto"))
 
 gMCS.info.raw <- lapply(gMCS.info.raw, as.list)
+# complete_list_genes_gMCSs <- 
 
 metTasks <- readRDS("Data/metTasks_HumanGEMv1.4.0.RDS")
 gMCS.info.raw.rawData <- readRDS("Data/gMCSs_all_cases_HumanGEMv1.4.0_ENSEMBL_raw.RDS")

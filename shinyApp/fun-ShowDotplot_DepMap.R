@@ -126,7 +126,7 @@ ShowDotplot_DepMap <- function(DepMap.info.all, gMCS.info.all, gmcs_database, ge
     theme_classic() + 
     theme(text = element_text(size=12),
           axis.text.x = element_text(color='black', size=12),
-          legend.title = element_blank(),
+          # legend.title = element_blank(),
           # axis.ticks.x = element_blank(),
           axis.text.y = element_text(color='black', size=12),
           legend.text = element_text(color='black', size=12,  margin = margin(r = 30, unit = "pt")),
@@ -179,7 +179,8 @@ ShowDotplot_DepMap <- function(DepMap.info.all, gMCS.info.all, gmcs_database, ge
   }
   
   if (flag_color_by_partner_gene){
-    pp_dotplot <- pp_dotplot + scale_color_brewer(type = "qual", palette = "Dark2")
+    pp_dotplot <- pp_dotplot + scale_color_brewer(type = "qual", palette = "Dark2") + 
+      guides(color=guide_legend(title="Partner gene / biomarker"))
   } else {
     pp_dotplot <- pp_dotplot + scale_color_manual(values = c("black"), breaks = c("noColor"))
   }
