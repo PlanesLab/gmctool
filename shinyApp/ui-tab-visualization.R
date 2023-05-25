@@ -43,7 +43,14 @@ tabPanel(title = "4. Visualization",
                                 c("val1","val2"),
                                 selected = c("val1","val2")),
              
+             div(id = "I_hide_general_filters", 
+                 actionButton("I_action_show_general_filters",
+                              "Show / Hide general filters",
+                              width = '100%',heigth = '100%',
+                              style="color: #ffffff; background-color: #333333; border-color: #ffffff")
+             ),
              
+             div(id = "mp4_sliders_general_filters", 
              h4(textOutput("O_txtout_perc_GEA_class")),
              # h4("Percentage of gene essentiality in target vs non-target class"),
              sliderInput(inputId = "I_perc_GEA_class_target_filter", h5("Threshold values for essentiality in target class (disease)"), min = 0, max = 100, value = c(1,100), dragRange = F, step = 1),
@@ -60,7 +67,7 @@ tabPanel(title = "4. Visualization",
                                               "Reset all",
                                               width = '100%',heigth = '100%',
                                               style="color: #ffffff; background-color: #333333; border-color: #ffffff"))
-             ),
+             )),
              
              br(),
              

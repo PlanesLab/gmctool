@@ -23,7 +23,7 @@
 # colors_heatmap = values$colors_heatmap
 # colors_annotation = values$colors_annotation
 # hline_value = 1
-# TABLE_GMCS_MODE = values$TABLE_GMCS_MODE
+# table_num_mode = values$table_num_mode
 
 
 ShowHeatmap <- function(gene.exp = NULL,
@@ -40,9 +40,8 @@ ShowHeatmap <- function(gene.exp = NULL,
                         colors_annotation = 1,
                         hline_value = 1,
                         # isDoubleKO = F,
-                        TABLE_GMCS_MODE){
-  
-  # browser()
+                        table_num_mode = c("number", "percentage"),
+                        table_target_mode = c("Single KO", "Double KO (only)", "Double KO + single KOs")){
   
   colors_annotation <- list(rainbow, scales::hue_pal(), scales::hue_pal())[[as.numeric(as.character(colors_annotation))]]
   sample.class.target <- sample.class.target[1:length(levels(sample.class))]
@@ -118,13 +117,19 @@ ShowHeatmap <- function(gene.exp = NULL,
     cl.responder <- paste0(cl, ".responder")
     cl.non.responder <- paste0(cl, ".non.responder")
     sample.class.2[sample.class==cl] <- cl.non.responder
-    if (length(gen.ENSEMBL) == 1){
+    if (table_target_mode == "Single KO"){
       gene.set.rest <- gene.set[-1,sample.class==cl, drop = F]
       # if (length(gmcs.ENSEMBL)==2)  {  gene.set.rest <- matrix(gene.set.rest, nrow = 1) }
       sample.class.2[sample.class==cl][gene.set[1,sample.class==cl]>0 & apply(gene.set.rest,2,max)<0] <- cl.responder
-    } else {
+    } else if (table_target_mode == "Double KO (only)"){
       gene.set.rest <- gene.set[-c(1,2),sample.class==cl, drop = F]
       sample.class.2[sample.class==cl][gene.set[1,sample.class==cl]>0 & gene.set[2,sample.class==cl]>0 & apply(gene.set.rest,2,max)<0] <- cl.responder
+    } else if (table_target_mode == "Double KO + single KOs"){
+      gene.set.rest <- gene.set[-c(1,2),sample.class==cl, drop = F]
+      idx_aux <- (gene.set[1,sample.class==cl]>0 & gene.set[2,sample.class==cl]>0 & apply(gene.set.rest,2,max)<0) | 
+        (gene.set[1,sample.class==cl]>0 & gene.set[2,sample.class==cl]<=0 & apply(gene.set.rest,2,max)<0) |
+        (gene.set[1,sample.class==cl]<=0 & gene.set[2,sample.class==cl]>0 & apply(gene.set.rest,2,max)<0)
+      sample.class.2[sample.class==cl][idx_aux] <- cl.responder
     }
     
   }
@@ -280,7 +285,7 @@ ShowHeatmap <- function(gene.exp = NULL,
     
     if (sum(sample.class.target) > 0.5) { 
       aux <- intersect(levels(sample.class)[sample.class.target>0.5], sample.class.list[[ch]])
-      if (TABLE_GMCS_MODE=="percentage") {
+      if (table_num_mode=="percentage") {
         aux2 <- gMCS.info.target[,aux]
       } else {
         aux2 <- (gMCS.info.target[,levels(sample.class)]/table(sample.class))[sample.class.target>0.5]

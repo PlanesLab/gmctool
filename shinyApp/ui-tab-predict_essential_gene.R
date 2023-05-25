@@ -152,9 +152,8 @@ tabPanel(title = "3. Predict Essential Genes and DKOs",
                  br(),
                  fileInput("ResultsEssentiality_input", "Choose .RData file to upload precomputed results",
                            width = "100%",
-                           accept = c(
-                             ".RData",
-                             ".Rdata")
+                           # accept = c(".RData", ".Rdata")
+                           # accept = paste0('.', apply(expand.grid(data.frame(t(data.frame(unlist(strsplit("rdata","")), unlist(strsplit("RDATA","")))))),1,paste0, collapse=""))
                  )
              ),
              
@@ -188,12 +187,12 @@ tabPanel(title = "3. Predict Essential Genes and DKOs",
                  h3("Results of Gene Essentiality Analysis:"),
                  br(),
                  fluidRow(
-                   column(width = 6, selectInput(inputId = "I_RESULT_TABLE_SINGLE_DOUBLE",
+                   column(width = 5, selectInput(inputId = "I_RESULT_TABLE_SINGLE_DOUBLE",
                                                  label = "Select which results to show:", 
                                                  choices =  list("Single KO", "Double KO (only)", "Double KO + single KOs"), 
                                                  selected = "Single KO")
                    ),
-                   column(width = 6, radioButtons(inputId = "I_RESULT_TABLE_MODE", 
+                   column(width = 5, radioButtons(inputId = "I_RESULT_TABLE_MODE", 
                                                   label = "Select visualization mode:", 
                                                   choiceValues = list("number",
                                                                       "percentage"), 
@@ -201,6 +200,11 @@ tabPanel(title = "3. Predict Essential Genes and DKOs",
                                                                       "percentage"), 
                                                   selected = "percentage", inline = TRUE)
                    ),
+                   column(width = 2,
+                          actionButton("I_mp3_recalculate_table_force", 
+                                       label = "Update result table", width = '100%',heigth = '100%',
+                                       style="color: #ffffff; background-color: #777777; border-color: #ffffff")
+                          )
                  ),
                  
                  br(),

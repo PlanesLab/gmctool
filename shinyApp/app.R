@@ -37,7 +37,7 @@ rm(list = ls())
 source("helpers.R") # Here, all the libraries and scripts needed are loaded
 
 source('configuration_computer_power.R')
-source('configuration_computer_power_AWS.R')
+# source('configuration_computer_power_AWS.R')
 
 num_max_classes = 30 # define the maximum number of classes
 
@@ -59,20 +59,6 @@ gMCS.info.raw.rawData <- readRDS("Data/gMCSs_all_cases_HumanGEMv1.4.0_ENSEMBL_ra
 
 metsBiomass <- readRDS("Data/Metabolites_of_interest_gMCS_biomass_HumanGEMv1.4.0.RDS")
 
-
-# START3 <- Sys.time()
-# DepMap.info.all <- new.env()
-# load("Data/DepMap_info_genes_gMCS_HumanGEMv1.4.0.RData", envir = DepMap.info.all)
-# load("Data/DepMap_correlation_genes_HumanGEMv1.4.0.RData", envir = DepMap.info.all)
-# DepMap.info.all <- as.list(DepMap.info.all)
-# DepMap.info.all <- DepMap.info.all[setdiff(names(DepMap.info.all), "DepMapEssentiality")]
-# DepMap.info.all$DepMapGeneExpression <- reshape2::melt(DepMap.info.all$DepMapGeneExpression)
-# colnames(DepMap.info.all$DepMapGeneExpression) <- c("ENSEMBL", "SYMBOL","DepMap_ID", "logTPM", "UNIT")
-# DepMap.info.all$DepMapGeneExpression <- DepMap.info.all$DepMapGeneExpression %>% 
-#   mutate(ENSEMBL = as.factor(ENSEMBL)) %>% mutate(SYMBOL = as.factor(SYMBOL)) %>% 
-#   mutate(DepMap_ID = as.factor(DepMap_ID)) %>% mutate(UNIT = as.factor(UNIT))
-# DepMap.info.all <- lapply(DepMap.info.all, as.data.frame)
-# 
 
 DepMap.info.all <- list("dictionary.CCLE" =  readRDS("./Data/DepMap_Data/dictionary.CCLE.RDS"),
                         "DepMapCorrelationByGene" =  readRDS("./Data/DepMap_Data/DepMapCorrelationByGene.RDS"))
@@ -172,6 +158,7 @@ server <- function(input, output, session) {
   hideElement("mp3")
   hideElement("mp3_loading")
   hideElement("mp4")
+  hideElement("mp4_sliders_general_filters")
   hideElement("mp4_heatmap")
   hideElement("mp4_heatmap_1"); hideElement("mp4_heatmap_2"); hideElement("mp4_heatmap_3"); hideElement("mp4_loading")
   hideElement("mp5"); hideElement("mp5_dotplot_1"); hideElement("mp5_dotplot_2"); hideElement("mp5_dotplot_3")
@@ -1635,17 +1622,18 @@ server <- function(input, output, session) {
   
   # browser()
   # Table of essential genes
-  observeEvent(flags$flag_show_table_essentiality, {
-    print(paste("flags$flag_show_table_essentiality = ", flags$flag_show_table_essentiality))
-    if (!flags$flag_show_table_essentiality){
-      hideElement("mp3")
-      hideElement("mp3_loading")
-      output$O_table_essential_genes <- NULL
-    } else {
-      showElement("mp3")
-      output$O_table_essential_genes <- DT::renderDataTable({ResultsEssentialityTable()}) 
-    }
-  })
+  observeEvent(c(flags$flag_show_table_essentiality,
+                 input$I_mp3_recalculate_table_force), {
+                   print(paste("flags$flag_show_table_essentiality = ", flags$flag_show_table_essentiality))
+                   if (!flags$flag_show_table_essentiality){
+                     hideElement("mp3")
+                     hideElement("mp3_loading")
+                     output$O_table_essential_genes <- NULL
+                   } else {
+                     showElement("mp3")
+                     output$O_table_essential_genes <- DT::renderDataTable({ResultsEssentialityTable()}) 
+                   }
+                 })
   
   # Save the results ####
   output$O_results_essential_genes_simple_download <- downloadHandler(filename = paste0("gmctool_", format(Sys.time(), "%Y_%m_%d_%Hh%Mm"), ".csv"), 
@@ -1686,6 +1674,18 @@ server <- function(input, output, session) {
     flags$flag_show_table_gmcs_correlation <- T
     hideElement("mp4_button")
     showElement("mp4")
+  })
+  
+  
+  observeEvent(input$I_action_show_general_filters, {
+    if (input$I_action_show_general_filters%%2 == 1){
+      flags$RealTimeTables_mp4 <- F
+      showElement("mp4_sliders_general_filters")
+      show_button_calculate_essentiality()
+    } else {
+      flags$RealTimeTables_mp4 <- T
+      hideElement("mp4_sliders_general_filters")
+    }
   })
   
   
@@ -2075,7 +2075,8 @@ server <- function(input, output, session) {
                                                     colors_heatmap = input$I_colors_heatmap,
                                                     colors_annotation = input$I_colors_colors_annotation,
                                                     hline_value = input$I_show_boxplots_hline,
-                                                    TABLE_GMCS_MODE = input$I_RESULT_TABLE_GMCS_MODE)
+                                                    table_num_mode = input$I_RESULT_TABLE_GMCS_MODE,
+                                                    table_target_mode = input$I_RESULT_TABLE_GMCS_SINGLE_DOUBLE)
                      
                      
                      print("end ShowHeatmap")

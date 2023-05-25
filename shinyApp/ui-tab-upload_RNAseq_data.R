@@ -57,23 +57,39 @@ tabPanel(title = "2. Upload RNA-seq data",
              div(id = "mp2_1",
                  h4("File:"),
                  fileInput("Data_input_text_expr", "Choose text file which contains the gene expression (it will eliminate sample classification)",
-                           width = "100%", accept = c(".txt",".tsv",".csv")
+                           width = "100%",
+                           # accept = c(".txt",".tsv",".csv")
+                           accept = c(paste0('.', apply(expand.grid(data.frame(t(data.frame(unlist(strsplit("txt","")), unlist(strsplit("TXT","")))))),1,paste0, collapse="")),
+                                      paste0('.', apply(expand.grid(data.frame(t(data.frame(unlist(strsplit("tsv","")), unlist(strsplit("TSV","")))))),1,paste0, collapse="")),
+                                      paste0('.', apply(expand.grid(data.frame(t(data.frame(unlist(strsplit("csv","")), unlist(strsplit("CSV","")))))),1,paste0, collapse="")))          
                  ), 
                  fileInput("Data_input_text_class", "Choose text file which contains sample information (it will overwrite changes in sample classification)",
-                           width = "100%", accept = c(".txt",".tsv",".csv")
+                           width = "100%", #accept = c(".txt",".tsv",".csv")
+                           accept = c(paste0('.', apply(expand.grid(data.frame(t(data.frame(unlist(strsplit("txt","")), unlist(strsplit("TXT","")))))),1,paste0, collapse="")),
+                                      paste0('.', apply(expand.grid(data.frame(t(data.frame(unlist(strsplit("tsv","")), unlist(strsplit("TSV","")))))),1,paste0, collapse="")),
+                                      paste0('.', apply(expand.grid(data.frame(t(data.frame(unlist(strsplit("csv","")), unlist(strsplit("CSV","")))))),1,paste0, collapse="")))
                  )),
              div(id = "mp2_2",
                  h4("tximport output:"),
                  fileInput("Data_input_tximport", "Choose .RData or .RDS file to upload tximport output (it will eliminate sample classification)",
-                           width = "100%", accept = c(".Rdata", ".RDS")
+                           width = "100%",
+                           # accept = c(".Rdata", ".RDS")
+                           accept = c(paste0('.', apply(expand.grid(data.frame(t(data.frame(unlist(strsplit("rdata","")), unlist(strsplit("RDATA","")))))),1,paste0, collapse="")),
+                                      paste0('.', apply(expand.grid(data.frame(t(data.frame(unlist(strsplit("rds","")), unlist(strsplit("RDS","")))))),1,paste0, collapse="")))
+                           
                  ),
                  fileInput("Data_input_text_class_2", "Choose text file which contains sample information (it will overwrite changes in sample classification)",
-                           width = "100%", accept = c(".txt",".tsv",".csv")
+                           width = "100%", #accept = c(".txt",".tsv",".csv")
+                           accept = c(paste0('.', apply(expand.grid(data.frame(t(data.frame(unlist(strsplit("txt","")), unlist(strsplit("TXT","")))))),1,paste0, collapse="")),
+                                      paste0('.', apply(expand.grid(data.frame(t(data.frame(unlist(strsplit("tsv","")), unlist(strsplit("TSV","")))))),1,paste0, collapse="")),
+                                      paste0('.', apply(expand.grid(data.frame(t(data.frame(unlist(strsplit("csv","")), unlist(strsplit("CSV","")))))),1,paste0, collapse="")))
                  )),
              div(id = "mp2_3",
                  h4("Previous sessions and examples:"),
                  fileInput("Data_input_rdata", "Choose .RData file to upload previously saved results",
-                           width = "100%", accept = c(".Rdata")
+                           width = "100%",
+                           # accept = c(".Rdata")
+                           accept = paste0('.', apply(expand.grid(data.frame(t(data.frame(unlist(strsplit("rdata","")), unlist(strsplit("RDATA","")))))),1,paste0, collapse=""))
                  )),
              div(id = "mp2_4",
                  actionButton("I_Data_input_example_TPM",

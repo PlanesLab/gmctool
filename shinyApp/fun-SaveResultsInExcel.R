@@ -9,6 +9,8 @@ SaveResultsInExcel <- function(Results, gMCS.info, filename){
     addWorksheet(wb, "num Double KO")
     addWorksheet(wb, "ratio Double KO")
     addWorksheet(wb, "gMCS Double KO")
+    addWorksheet(wb, "num combined single double")
+    addWorksheet(wb, "ratio combined single double")
   }
   
   ## Add the data
@@ -26,6 +28,8 @@ SaveResultsInExcel <- function(Results, gMCS.info, filename){
     aux$gMCS_ENSEMBL <- gMCS.info$gMCSs.ENSEMBL.txt[as.numeric(as.character(aux$gMCS))]
     aux$gMCS_SYMBOL <- gMCS.info$gMCSs.SYMBOL.txt[as.numeric(as.character(aux$gMCS))]
     writeDataTable(wb, "gMCS Double KO", aux, tableStyle = "TableStyleLight1", colNames = T, rowNames = F)
+    writeDataTable(wb, "num combined single double", Results$num.essential.single.pair.combined.gene, tableStyle = "TableStyleLight1")
+    writeDataTable(wb, "ratio combined single double", Results$ratio.essential.single.pair.combined.gene, tableStyle = "TableStyleLight1")
   }
   
   
