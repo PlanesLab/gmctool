@@ -77,8 +77,10 @@ RUN curl -L "https://github.com/lvalcarcel/gmctool/archive/main.zip" -o /root/ma
 
 # select this for powerful computer
 COPY configuration_computer_power.R /root/gmctool/configuration_computer_power.R 
+COPY loading-73.gif /root/gmctool/www/loading-74.gif
 # select this for AWS
-COPY configuration_computer_power_AWS.R /root/gmctool/configuration_computer_power.R 
+#COPY configuration_computer_power_AWS.R /root/gmctool/configuration_computer_power.R 
+#COPY loading-74.gif /root/gmctool/www/loading-74.gif
 
 RUN tree /root/
 
