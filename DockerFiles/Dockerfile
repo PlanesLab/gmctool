@@ -75,8 +75,11 @@ RUN curl -L "https://github.com/lvalcarcel/gmctool/archive/main.zip" -o /root/ma
 
 #COPY gMCStool /root/gMCStool
 
-# comment for more powerfull cluster
+# select this for powerful computer
 COPY configuration_computer_power.R /root/gmctool/configuration_computer_power.R 
+# select this for AWS
+COPY configuration_computer_power_AWS.R /root/gmctool/configuration_computer_power.R 
+
 RUN tree /root/
 
 
