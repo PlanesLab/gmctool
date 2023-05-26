@@ -186,6 +186,7 @@ server <- function(input, output, session) {
                            sample.class = as.factor("---"),
                            sample.cohort = as.factor("---"),
                            ResultsEssentiality = NULL,
+                           localT2_genes_in_set = NULL,
                            filtersGEA = lapply(1:num_max_classes,function(x){c(0,100)}),
                            list.gMCS.essential.filtered = NULL,
                            list.corr.essential.filtered = NULL,
@@ -1222,6 +1223,14 @@ server <- function(input, output, session) {
         values$O_txtout_I_TH_METHOD <- paste0("fastcormics (", input$I_perc_localT2, ")")
       }
       
+      # browser()
+      if (input$I_perc_localT2 == "all_genes_dataset"){
+        values$localT2_genes_in_set <- rownames(values$gene.exp)
+      } else if (input$I_perc_localT2 == "all_genes_HumanGEM"){
+        values$localT2_genes_in_set <- gMCS.info$selected$table.genes.HumanGEM$ENSEMBL
+      } else if (input$I_perc_localT2 == "all_genes_gMCSs"){
+        values$localT2_genes_in_set <- gMCS.info$selected$genes.gMCSs.ENSEMBL
+      }
       
       ResultsEssentiality <- CalculateEssentialGenes(gene.exp = values$gene.exp, # gene expression
                                                      gMCS.info = gMCS.info$selected, # gMCS information
@@ -1234,7 +1243,7 @@ server <- function(input, output, session) {
                                                      thresholding_methodology = input$I_TH_METHOD, # How to calculate the threshold
                                                      log2.fastcormics = input$I_perc_fastcormics, # should we consider log2 in fastcormics distribution calculation?
                                                      gmcsTH_perc = input$I_perc_gmcsTH, singleTH = input$I_perc_singleTH, # data to calculate threshold
-                                                     genes.in.set = rownames(gene.exp), # information to limit the genes used in localT2
+                                                     genes.in.set = values$localT2_genes_in_set, # information to limit the genes used in localT2
                                                      calculateDoubleKO = F, # Should the code calculate single or double KO?
                                                      CompleteResultsDoubleKO = T, # include the list of KO with gMCS. If False, only the matrix and summary table are calculated
                                                      CompleteResultsSimpleKO = T, # include the list of KO with gMCS. If False, only the matrix and summary table are calculated
@@ -1308,11 +1317,15 @@ server <- function(input, output, session) {
         values$O_txtout_I_TH_METHOD <- paste0("fastcormics (", input$I_perc_localT2, ")")
       }
       
-      if (input$I_perc_localT2 == "") {
-        genes.in.set <- rownames(gene.exp)
-      } else {
-        genes.in.set <- gMCS.info$selected$genes.gMCSs.ENSEMBL
+      # browser()
+      if (input$I_perc_localT2 == "all_genes_dataset"){
+        values$localT2_genes_in_set <- rownames(values$gene.exp)
+      } else if (input$I_perc_localT2 == "all_genes_HumanGEM"){
+        values$localT2_genes_in_set <- gMCS.info$selected$table.genes.HumanGEM$ENSEMBL
+      } else if (input$I_perc_localT2 == "all_genes_gMCSs"){
+        values$localT2_genes_in_set <- gMCS.info$selected$genes.gMCSs.ENSEMBL
       }
+      
       ResultsEssentiality <- CalculateEssentialGenes(gene.exp = values$gene.exp, # gene expression
                                                      gMCS.info = gMCS.info$selected, # gMCS information
                                                      sample.class = values$sample.class,
@@ -1324,7 +1337,7 @@ server <- function(input, output, session) {
                                                      thresholding_methodology = input$I_TH_METHOD, # How to calculate the threshold
                                                      log2.fastcormics = input$I_perc_fastcormics, # should we consider log2 in fastcormics distribution calculation?
                                                      gmcsTH_perc = input$I_perc_gmcsTH, singleTH = input$I_perc_singleTH, # data to calculate threshold
-                                                     genes.in.set = rownames(gene.exp), # information to limit the genes used in localT2
+                                                     genes.in.set = values$localT2_genes_in_set, # information to limit the genes used in localT2
                                                      calculateDoubleKO = T, # Should the code calculate single or double KO?
                                                      CompleteResultsDoubleKO = T, # include the list of KO with gMCS. If False, only the matrix and summary table are calculated
                                                      CompleteResultsSimpleKO = T, # include the list of KO with gMCS. If False, only the matrix and summary table are calculated

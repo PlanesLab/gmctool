@@ -33,7 +33,6 @@ CalculateEssentialGenes <- function(gene.exp, # gene expression
   # Calculate first and second most expressed gene in each gMCS in each sample ####
   gene.exp[is.na(gene.exp)] <- 0 # eliminate nans
   
-  
   ################################################################
   ####        s Simplification of gMCSs along tasks           ####
   ################################################################

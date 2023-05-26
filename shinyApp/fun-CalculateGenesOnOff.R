@@ -13,7 +13,7 @@ CalculateGenesOnOff <- function(gene.exp, # gene expression
                                 threshold_exp = ifelse(min(gene.exp)<0, -Inf, 1e-3) # minimum expression to be taken into account for the quantile calculation, only used in gmcsTH
 ){
   
-  
+
   # examine the inputs
   thresholding_methodology = match.arg(thresholding_methodology)
   parallel.mode = match.arg(parallel.mode)
@@ -42,6 +42,7 @@ CalculateGenesOnOff <- function(gene.exp, # gene expression
   # Calculate first and second most expressed gene in each gMCS in each sample ###
   gene.exp[is.na(gene.exp)] <- 0 # eliminate nans
   
+
   ## Define the different cases
   if (thresholding_methodology == "gmcsTH"){
     ###########################  gmcsTH methodology   ###########################

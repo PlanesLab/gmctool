@@ -24,7 +24,7 @@ footer=p(hr(),p("ShinyApp created by ", strong("Luis V. Valcarcel and Francisco 
          p(("Computational Biology group at Tecnun- University of Navarra"),align="center",width=4),
          # p("Authors: Luis V. Valcarcel, Raquel Ordo\u00F1\U0065\U007A, I\U00F1igo Apaolaza, Ana Valcarcel, Leire Garate, Cem Meydan, Ari Melnick, Jesus San Miguel, Xabier Agirre, Felipe Prosper and  Francisco J. Planes",align="center",width=4),
          p(("Contact: "),a("lvalcarcelg@gmail.com"),(","),a("fplanes@tecnun.es"),align="center",width=4),
-         p(("Code available on Github:"),a("https://github.com/lvalcarcel/gmctool"),align="center",width=4),
+         p(("Code available on Github:"),a("https://github.com/PlanesLab/gmctool"),align="center",width=4),
          p(("Copyright (C) 2022, code licensed under GPLv3"),align="center",width=4)
          )
 
