@@ -7,7 +7,7 @@ output:
   css: style.css
 ---
 
-<p style="text-align:center;"><img src="logo_gmctool_2.png" alt="Welcome" style="width: 50%"/></p>
+<p style="text-align:center;"><img src="logo_gmctool.png" alt="Welcome" style="width: 50%"/></p>
 
 
 <center>
@@ -17,6 +17,7 @@ output:
 
 
 <br>
+
 ## Welcome!
 
 #### We present gmctool, a user-friedly web-tool to predict essential genes in the latest reconstruction of the human metabolism, [Human1](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7331181/), freely available in [GitHub](https://github.com/SysBioChalmers/Human-GEM). 
