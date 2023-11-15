@@ -1,7 +1,7 @@
 # gMCtool
 
 <div align="center">
-    <img src="www/logo_gMCStool_2.png" alt="Welcome" style="width: 75%"/>
+    <img src="shinyApp/www/logo_gMCStool_2.png" alt="Welcome" style="width: 75%"/>
     <p> <b> <i> A tool for discovering essential genes in cancer metabolism </i> </b> </p>
 </div>
 
@@ -38,7 +38,7 @@ link: [GMCtool](https://biotecnun.unav.es/app/gmctool)
 Clone the repository
 
 ```git
-git clone https://gitlab.com/lvalcarcel/gmctool.git
+git clone https://github.com/PlanesLab/gmctool.git
 ```
 
 Run RShiny
@@ -63,7 +63,7 @@ Now, you can point your browser to [http://localhost:3838](http://localhost:3838
 
 ## Quick start
 
-There is a complete manual of [PDF](https://github.com/lvalcarcel/gmctool/shinyApp/gMCStool_help_tab.pdf), in the help tab of the tool or in or in [YouTube](https://www.youtube.com/watch?v=k9OM2lhDHEU).
+There is a complete manual of [PDF](https://github.com/PlanesLab/gmctool/shinyApp/instructions/gMCStool_help_tab.pdf), in the help tab of the tool or in or in [YouTube](https://www.youtube.com/watch?v=k9OM2lhDHEU).
 
 <br>
 
