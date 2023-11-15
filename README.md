@@ -63,7 +63,7 @@ Now, you can point your browser to [http://localhost:3838](http://localhost:3838
 
 ## Quick start
 
-There is a complete manual of [PDF](https://github.com/PlanesLab/gmctool/shinyApp/instructions/gMCStool_help_tab.pdf), in the help tab of the tool or in or in [YouTube](https://www.youtube.com/watch?v=k9OM2lhDHEU).
+There is a complete manual of [PDF](https://github.com/PlanesLab/gmctool/shinyApp/instructions/gmctool_help_tab.pdf), in the help tab of the tool or in or in [YouTube](https://www.youtube.com/watch?v=k9OM2lhDHEU).
 
 <br>
 
