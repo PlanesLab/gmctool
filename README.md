@@ -1,7 +1,7 @@
 # gMCtool
 
 <div align="center">
-    <img src="shinyApp/www/logo_gMCStool_2.png" alt="Welcome" style="width: 75%"/>
+    <img src="shinyApp/www/logo_gmctool.png" alt="Welcome" style="width: 75%"/>
     <p> <b> <i> A tool for discovering essential genes in cancer metabolism </i> </b> </p>
 </div>
 
@@ -71,5 +71,5 @@ There is a complete manual of [PDF](shinyApp/instructions/gmctool_help_tab.pdf),
 ## Cite Us
 
 
-*Luis V. Valcárcel, Edurne San José-Enériz, Raquel Ordoñez, Iñigo Apaolaza, Ana Valcárcel, Leire Garate, Jesús San Miguel, Antonio Pineda-Lucena, Xabier Agirre, Felipe Prósper, Francisco J. Planes.. "gMCSool App"*
+*Luis V. Valcárcel, Edurne San José-Enériz, Raquel Ordoñez, Iñigo Apaolaza, Danel Olaverri-Mendizabal, Naroa Barrena, Ana Valcárcel, Leire Garate, Jesús San Miguel, Antonio Pineda-Lucena, Xabier Agirre, Felipe Prósper, Francisco J. Planes "gMCSool App"*
 
