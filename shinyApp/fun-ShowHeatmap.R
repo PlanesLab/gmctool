@@ -239,6 +239,7 @@ ShowHeatmap <- function(gene.exp = NULL,
   
   ## Generate a Heatmap for each cohort
   plot.list <- list()
+  ha <- list()
   
   
   for (ch in levels(sample.cohort)) {
@@ -280,7 +281,7 @@ ShowHeatmap <- function(gene.exp = NULL,
       if (flag_show_SYMBOL) { rownames(gene.set.list[[ch]]) <- gmcs.SYMBOL } else {rownames(gene.set.list[[ch]]) <- gmcs.ENSEMBL}
     }
     
-    ha <- data.frame(class = sample.class.2.list[[ch]], row.names = colnames(gene.set.list[[ch]]))
+    ha[[ch]] <- data.frame(class = sample.class.2.list[[ch]], row.names = colnames(gene.set.list[[ch]]))
     
     
     if (sum(sample.class.target) > 0.5) { 
@@ -305,7 +306,7 @@ ShowHeatmap <- function(gene.exp = NULL,
                                 labels_col = ANNOTATION_TEXT[[ch]], 
                                 color = colorRampPalette(unlist(strsplit(colors_heatmap,'_')))(100), 
                                 breaks = seq(-1,+1, length.out = 100),
-                                annotation_col = ha,
+                                annotation_col = ha[[ch]],
                                 legend = ch==levels(sample.cohort)[length(levels(sample.cohort))],
                                 annotation_legend = ch==levels(sample.cohort)[length(levels(sample.cohort))],
                                 annotation_colors = list(class = COLORS),
@@ -429,12 +430,15 @@ ShowHeatmap <- function(gene.exp = NULL,
   }
   
   
-  
+  # browser()
   if (flag_include_boxplots_heatmap){
-    return(list(heatmap = pp_heatmaps, boxplot = pp_boxplot))
+    return(list(heatmap = pp_heatmaps, boxplot = pp_boxplot,
+                heatmap_info = list(gene.ratio = gene.set.list, annotation = ha),
+                boxplot_info = plot.list.2))
     # ggarrange(pp_heatmaps, pp_boxplot, ncol = 1)
   } else {
-    return(list(heatmap = pp_heatmaps))
+    return(list(heatmap = pp_heatmaps, 
+                heatmap_info = list(gene.ratio = gene.set.list, annotation = ha)))
     # ggarrange(pp_heatmaps)
   }
 }
